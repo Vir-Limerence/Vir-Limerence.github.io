@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="shortcut icon" href="https://Vir-Limerence.github.io/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="renderer" content="webkit">
+<meta name="description" content="HIT2022级网络安全研究生，在这里我将会记录一些日常学习研究">
+<meta charset="UTF-8">
+<title>
+	17. Java方法 | MAQI&#39; blog
+</title>
+<link href="https://Vir-Limerence.github.io/styles/main.css" type="text/css" rel="stylesheet" />
+<link href="https://at.alicdn.com/t/font_1621793_zatzzgvf30g.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+<script async src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.min.js"></script>
+<script src="https://Vir-Limerence.github.io/media/js/magnify.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script
+	type="text/javascript">function btn_toggle() { document.getElementById("hn").classList.contains("no-js") ? document.getElementById("hn").classList.remove("no-js") : document.getElementById("hn").classList.add("no-js") }
+</script>
+<!--  -->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e2a8873f488fc608a445013cc86317b0";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+	
+
+
+		<link rel="canonical" href="https://Vir-Limerence.github.io/post/17-java-fang-fa/" />
+</head>
+
+<body>
+	<div class="progress"></div>
+<style>
+    body::after {
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: .06;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1
+    }
+
+    body::after {
+        background-image: url(https://img.xjh.me/random_img.php?type=bg&ctype=acg&return=302)
+    }
+
+    .progress {
+        background: linear-gradient(to right, #87ceeb var(--scroll), transparent 0);
+        background-repeat: no-repeat;
+        position: fixed;
+        width: 100%;
+        height: 4px;
+        z-index: 1
+    }
+
+    #blogTitle {
+        background: url(https://img.xjh.me/random_img.php?type=bg&ctype=nature&return=302) center center / cover no-repeat #222;
+        overflow: hidden;
+        width: 100%;
+        height: 40vh;
+        max-height: 40vh;
+        box-shadow: 0 1px 2px rgba(150, 150, 150, .7);
+        text-align: center;
+        display: table
+    }
+
+
+    .vertical {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        position: relative;
+        z-index: 2
+    }
+
+    #Header1_HeaderTitle {
+        font-family: 'Playball', cursive;
+        color: #fff;
+        font-size: 3rem;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        margin: 10px 0 10px 0;
+        letter-spacing: -1px;
+        font-weight: 700;
+        animation: fade-in-down 1s both;
+        animation-delay: .5s
+    }
+
+    .vertical h2 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5em;
+        font-weight: 400;
+        letter-spacing: .01rem;
+        color: rgba(255, 255, 255, 0.8);
+        -webkit-animation: fade-in-down .9s;
+        animation: fade-in-down .9s both;
+        -webkit-animation-delay: .1s;
+        animation-delay: .3s;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
+        overflow: hidden;
+        font-family: 'Playball', cursive
+    }
+
+    .poem-wrap {
+        position: relative;
+        width: 1000px;
+        max-width: 80%;
+        border: 2px solid #797979;
+        border-top: 0;
+        text-align: center;
+        margin: 40px auto
+    }
+
+    .poem-left {
+        left: 0
+    }
+
+    .poem-right {
+        right: 0
+    }
+
+    .poem-border {
+        position: absolute;
+        height: 2px;
+        width: 27%;
+        background-color: #797979
+    }
+
+    .poem-wrap p {
+        width: 70%;
+        margin: auto;
+        line-height: 30px;
+        color: #797979
+    }
+
+    .poem-wrap h1 {
+        position: relative;
+        margin-top: -20px;
+        display: inline-block;
+        letter-spacing: 4px;
+        color: #797979;
+        font-size: 2em;
+        margin-bottom: 20px;
+        /* 将标题位于poem-wrap的正中央 */
+    }
+
+    #poem_sentence {
+        font-size: 25px;
+        color: #797979;
+        /* 设置文字居中 */
+        text-align: center;
+    }
+
+    #poem_info {
+        font-size: 15px;
+        margin: 15px auto;
+        color: #797979;
+        text-align: center;
+    }
+
+    #navList {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        /* 设置字体大小 */
+        font-size: 20px;
+    }
+
+    #navList li {
+        font-family: 'Josefin Sans Light', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "'Hiragino Sans GB", STHeiti, "Microsoft Yahei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+        color: #95a5a6;
+        display: inline-block;
+        padding: 1rem;
+        font-size: 1rem;
+        text-align: center
+    }
+
+    #navList li a {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3)
+    }
+
+    #navList li a:hover {
+        color: #f60;
+        font-weight: 500
+    }
+
+    #navigator {
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+        background: hsla(0, 0%, 100%, .6);
+        z-index: 1;
+    }
+    #starfield {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+</style>
+<div class="darkmode-background"></div>
+<div class="darkmode-layer"></div>
+<noscript>
+    <p class="warn">本页面需要浏览器支持（启用）JavaScript</p>
+</noscript>
+<!-- 添加星星 -->
+<canvas id="starfield"></canvas>
+<script>
+    // 获取画布及上下文
+    var canvas = document.getElementById('starfield');
+    var ctx = canvas.getContext('2d');
+
+    // 设置画布大小
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 创建一个存储星星的数组
+    var stars = [];
+
+    // 创建初始的星星
+    for (var i = 0; i < 200; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            speed: 1 + Math.random() * 5
+        });
+    }
+
+    // 定义一个函数来清除画布
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 定义一个函数来更新星星的位置
+    function update() {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].y += stars[i].speed;
+            if (stars[i].y > canvas.height) {
+                stars[i].y = 0;
+                stars[i].x = Math.random() * canvas.width;
+            }
+        }
+    }
+
+    // 定义一个函数来绘制星星
+    function draw() {
+        for (var i = 0; i < stars.length; i++) {
+            ctx.beginPath();
+            ctx.arc(stars[i].x, stars[i].y, 1, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        }
+    }
+
+    // 定义一个函数来执行动画
+    function animate() {
+        clear();
+        update();
+        draw();
+        requestAnimationFrame(animate);
+    }
+
+    // 启动动画
+    animate();
+</script>
+<!-- 添加星星 -->
+<div class="header">
+    <!-- 添加头部标题 -->
+    <div id="blogTitle" style="margin-bottom: 0px;">
+        <div class="vertical">
+            <h1>
+                <a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="/">
+                    MAQI&#39; blog
+                </a>
+            </h1>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <div id="navigator" style="position: static; top: 0px;">
+        <div class="nav">
+            <ul id="navList">
+                
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/">
+                            首页
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/archives">
+                            归档
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/columns">
+                            专栏
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/tags">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/post/about">
+                            关于
+                        </a>
+                    </li>
+                    
+                        <li>
+                            <form id="gridea-search-form" data-update="1578893743252" action="/search/index.html"><input
+                                    class="search-input" autocomplete="off" spellcheck="false" name="q"
+                                    placeholder="搜索"></form>
+                        </li>
+                        <li>
+                            <input id="switch_default" onclick="mobileBtn()" type="checkbox"
+                                class="switch_default"><label for="switch_default"></label>
+                        </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <!-- 添加古诗词 -->
+    <div class="poem-wrap">
+        <div class="poem-border poem-left"></div>
+        <div class="poem-border poem-right"></div>
+        <h1>念两句诗</h1>
+        <div id="poem_sentence"></div>
+        <div id="poem_info"></div>
+    </div>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        jinrishici.load(function (result) {
+            var sentence = document.querySelector("#poem_sentence")
+            var info = document.querySelector("#poem_info")
+            sentence.innerHTML = result.data.content
+            info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+        });
+    </script>
+    <!-- 添加古诗词 -->
+</div>
+<!--调节亮度-->
+<script>
+    function enableDarkmode() {
+        document.body.classList.add("darkmode");
+        document.getElementById("switch_default").checked = true;
+        document.getElementById("switch_default_h").checked = true;
+    }
+
+    function removeDarkmode() {
+        document.body.classList.remove("darkmode");
+        document.getElementById("switch_default").checked = false;
+        document.getElementById("switch_default_h").checked = false;
+    }
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+
+    // 删除或注释掉以下行，以防止页面加载时自动启用暗色模式
+    // var cookie = getCookie("darkmode");
+    // if ("enable" === cookie) enableDarkmode();
+
+    // 如果您希望根据系统的首选项颜色方案自动切换，可以保留以下代码
+    // 但是请确保"disable"不在cookie中
+    // if (window.matchMedia("(prefers-color-scheme: dark)").matches && "disable" !== cookie) {
+    //     enableDarkmode();
+    //     document.cookie = "darkmode=enable; path=/";
+    // }
+
+    var mobileBtn = function() {
+        if (document.getElementById("switch_default").checked) {
+            enableDarkmode();
+            document.cookie = "darkmode=enable; path=/";
+        } else {
+            removeDarkmode();
+            document.cookie = "darkmode=disable; path=/";
+        }
+    };
+</script>
+		<div class="main">
+			<div class="main-inner">
+				<div class="content">
+					<article class="post">
+						<h2 class="post_title sm_margin"><a>
+								17. Java方法
+							</a></h2>
+						<script>function lan() { if (document.getElementById("lan").innerText == "繁") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_tw.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "简" } else { if (document.getElementById("lan").innerText == "簡") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_cn.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "繁" } } };</script>
+						<section class="post_details"><i class="iconfont icon-calendar"></i><span
+								style="margin-right:15px">
+								2023-06-03
+							</span><i class="iconfont icon-browse"></i><span style="margin-right:15px"> <span
+									id="busuanzi_value_page_pv"></span>浏览</span>
+									<i class="iconfont icon-category"></i>
+								<!-- <span class="weaklink" style="margin-right:15px"> -->
+								 <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+										JAVA速记
+									</a>
+									
+								
+							</span><i class="iconfont icon-caret-down"></i><span style="margin-right:15px">
+								1647字
+							</span><i class="iconfont icon-naozhong"></i><span style="margin-right:15px">
+								7 min read
+							</span><a id="lan" href="javascript:void(0);" onclick="lan();" title="调整简繁体"
+								style="margin-right:15px;">繁</a>
+							
+						</section>
+						
+							<!-- <img class="featureImg" alt="featureimg" src="https://img.btstu.cn/api/images/5a3386b6bfcd2.jpg"
+								referrerpolicy="no-referrer">
+							 -->
+								<div style="display:flex">
+									<div class="markdown-body" id="md_block">
+										<div class="round-shape-one"></div>
+										<p>😋</p>
+<p>在前面几个章节中我们经常使用到 <strong>System.out.println()</strong>，那么它是什么呢？</p>
+<ul>
+<li>println() 是一个方法。</li>
+<li>System 是系统类。</li>
+<li>out 是标准输出对象。</li>
+</ul>
+<p>这句话的用法是调用系统类 System 中的标准输出对象 out 中的方法 println()。</p>
+<h1 id="什么是方法">什么是方法</h1>
+<p>Java方法是语句的集合，它们在一起执行一个功能。</p>
+<ul>
+<li>方法是解决一类问题的步骤的有序组合</li>
+<li>方法包含于类或对象中</li>
+<li>方法在程序中被创建，在其他地方被引用</li>
+</ul>
+<h1 id="方法的优点">方法的优点</h1>
+<ul>
+<li>
+<ol>
+<li>使程序变得更简短而清晰。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>有利于程序维护。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>可以提高程序开发的效率。</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>提高了代码的重用性。</li>
+</ol>
+</li>
+</ul>
+<h1 id="方法的命名规则">方法的命名规则</h1>
+<ul>
+<li>
+<ol>
+<li>方法的名字的<strong>第一个单词应以小写字母作为开头</strong>，<strong>后面的单词则用大写字母开头写</strong>，<strong>不使用连接符</strong>。例如：<strong>addPerson</strong>。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>下划线可能出现在 JUnit 测试方法名称中用以分隔名称的逻辑组件。一个典型的模式是：<strong>test<MethodUnderTest>_<state></strong>，例如 <strong>testPop_emptyStack</strong>。</li>
+</ol>
+</li>
+</ul>
+<h1 id="方法的定义">方法的定义</h1>
+<pre><code class="language-java">修饰符 返回值类型 方法名(参数类型 参数名){
+    ...
+    方法体
+    ...
+    return 返回值;
+}
+</code></pre>
+<ul>
+<li>**修饰符：**修饰符，这是可选的，告诉编译器如何调用该方法。定义了该方法的访问类型。</li>
+<li><strong>返回值类型 ：<strong>方法可能会返回值。returnValueType 是方法返回值的数据类型。有些方法执行所需的操作，但没有返回值。在这种情况下，returnValueType 是关键字</strong>void</strong>。</li>
+<li>**方法名：**是方法的实际名称。<strong>方法名和参数表共同构成方法签名</strong>。</li>
+<li>**参数类型：**参数像是一个占位符。当方法被调用时，传递值给参数。这个值被称为实参或变量。参数列表是指方法的参数类型、顺序和参数的个数。参数是可选的，方法可以不包含任何参数。</li>
+<li>**方法体：**方法体包含具体的语句，定义该方法的功能。</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://www.runoob.com/wp-content/uploads/2013/12/D53C92B3-9643-4871-8A72-33D491299653.jpg" alt="img" loading="lazy"></figure>
+<h1 id="方法调用">方法调用</h1>
+<p>Java 支持两种调用方法的方式，根据方法是否返回值来选择。</p>
+<p>当程序调用一个方法时，程序的控制权交给了被调用的方法。当被调用方法的返回语句执行或者到达方法体闭括号时候交还控制权给程序。</p>
+<ol>
+<li>当方法返回一个值的时候，方法调用通常被当做一个值。</li>
+</ol>
+<pre><code class="language-java">int larger = max(30, 40);
+</code></pre>
+<ol start="2">
+<li>如果方法返回值是void，方法调用一定是一条语句。例如，方法println返回void。</li>
+</ol>
+<pre><code class="language-java">System.out.println(&quot;欢迎访问菜鸟教程！&quot;);
+</code></pre>
+<h1 id="方法的重载">方法的重载</h1>
+<p>如果你调用max方法时传递的是int型参数，则 int型参数的max方法就会被调用；</p>
+<p>如果传递的是double型参数，则double类型的max方法体会被调用，这叫做方法重载；</p>
+<p>就是说<strong>一个类的两个方法拥有相同的名字，但是有不同的参数列表</strong>。Java编译器根据方法签名判断哪个方法应该被调用。<strong>重载的方法必须拥有不同的参数列表</strong>。</p>
+<h1 id="变量的作用域">变量的作用域</h1>
+<p>变量的范围是程序中该变量可以被引用的部分。</p>
+<p><strong>方法内定义的变量被称为局部变量</strong>。</p>
+<p>局部变量的作用范围从声明开始，直到包含它的块结束。</p>
+<p><strong>局部变量必须声明才可以使用</strong>。</p>
+<p>方法的参数范围涵盖整个方法。参数实际上是一个局部变量。</p>
+<p>for循环的初始化部分声明的变量，其作用范围在整个循环。</p>
+<p>但循环体内声明的变量其适用范围是从它声明到循环体结束。它包含如下所示的变量声明：</p>
+<figure data-type="image" tabindex="2"><img src="https://www.runoob.com/wp-content/uploads/2013/12/12-130Q1221013F0.jpg" alt="img" loading="lazy"></figure>
+<p>你可以在一个方法里，不同的非嵌套块中多次声明一个具有相同的名称局部变量，但你不能在嵌套块内两次声明局部变量。</p>
+<h1 id="使用命令行参数">使用命令行参数</h1>
+<pre><code class="language-java">public class CommandLine {
+   public static void main(String[] args){ 
+      for(int i=0; i&lt;args.length; i++){
+         System.out.println(&quot;args[&quot; + i + &quot;]: &quot; + args[i]);
+      }
+   }
+}
+//args[1] 从1开始指代命令行中的变量，args[0]代指this
+</code></pre>
+<h1 id="构造对象">构造对象</h1>
+<p><strong>当一个对象被创建时候，构造方法用来初始化该对象。构造方法和它所在类的名字相同，但构造方法没有返回值</strong>。</p>
+<p>通常会使用构造方法给一个类的实例变量赋初值，或者执行其它必要的步骤来创建一个完整的对象。</p>
+<p><strong>所有的类都有构造方法，因为 Java 自动提供了一个默认构造方法，默认构造方法的访问修饰符和类的访问修饰符相同</strong>(类为 public，构造函数也为 public；类改为 protected，构造函数也改为 protected)。<strong>一旦你定义了自己的构造方法，默认构造方法就会失效</strong>。</p>
+<h1 id="可变参数">可变参数</h1>
+<p>JDK 1.5 开始，Java支持传递同类型的可变参数给一个方法。</p>
+<pre><code class="language-java">typeName... parameterName
+</code></pre>
+<p>在方法声明中，在指定参数类型后加一个省略号(...) 。<strong>一个方法中只能指定一个可变参数，它必须是方法的最后一个参数。任何普通的参数必须在它之前声明</strong>。</p>
+<pre><code class="language-java">    public static void printMax( double... numbers) {
+        if (numbers.length == 0) {
+            System.out.println(&quot;No argument passed&quot;);
+            return;
+        }
+ 
+        double result = numbers[0];
+ 
+        for (int i = 1; i &lt;  numbers.length; i++){
+            if (numbers[i] &gt;  result) {
+                result = numbers[i];
+            }
+        }
+        System.out.println(&quot;The max value is &quot; + result);
+    }
+</code></pre>
+<h1 id="finalize方法">finalize方法</h1>
+<p><strong>Java 允许定义这样的方法，它在对象被垃圾收集器析构(回收)之前调用，这个方法叫做 finalize( )，它用来清除回收对象</strong>。例如，你可以使用 finalize() 来确保一个对象打开的文件被关闭了。在 finalize() 方法里，你必须指定在对象销毁时候要执行的操作。</p>
+<p>一般格式：</p>
+<pre><code class="language-java">protected void finalize()
+{
+   // 在这里终结代码
+}
+</code></pre>
+<p>关键字 protected 是一个限定符，它确保 finalize() 方法不会被该类以外的代码调用。</p>
+<p>当然，Java 的内存回收可以由 JVM 来自动完成。如果你手动使用，则可以使用上面的方法。</p>
+<pre><code class="language-java">public class FinalizationDemo {  
+  public static void main(String[] args) {  
+    Cake c1 = new Cake(1);  
+    Cake c2 = new Cake(2);  
+    Cake c3 = new Cake(3);  
+      
+    c2 = c3 = null;  
+    System.gc(); //调用Java垃圾收集器
+  }  
+}  
+ 
+class Cake extends Object {  
+  private int id;  
+  public Cake(int id) {  
+    this.id = id;  
+    System.out.println(&quot;Cake Object &quot; + id + &quot;is created&quot;);  
+  }  
+    
+  protected void finalize() throws java.lang.Throwable {  
+    super.finalize();  
+    System.out.println(&quot;Cake Object &quot; + id + &quot;is disposed&quot;);  
+  }  
+}
+</code></pre>
+
+											<span id="footnote"></span>
+											<div id="warn"></div>
+									</div>
+									<!-- <div class="toc-container">
+										这段是目录
+										<ul class="markdownIt-TOC">
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%B9%E6%B3%95">什么是方法</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E4%BC%98%E7%82%B9">方法的优点</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99">方法的命名规则</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9A%E4%B9%89">方法的定义</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8">方法调用</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E8%BD%BD">方法的重载</a></li>
+<li><a href="#%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F">变量的作用域</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0">使用命令行参数</a></li>
+<li><a href="#%E6%9E%84%E9%80%A0%E5%AF%B9%E8%B1%A1">构造对象</a></li>
+<li><a href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0">可变参数</a></li>
+<li><a href="#finalize%E6%96%B9%E6%B3%95">finalize方法</a></li>
+</ul>
+
+									</div> -->
+								</div>
+								<div id="fullPage"><canvas id="canvas"></canvas></div>
+					</article>
+					<div id="eof"><span>EOF</span></div>
+					<div class="paginator pager pagination">
+						<div class="paginator_container pagination_container">
+							<a href="https://Vir-Limerence.github.io/post/18-java-liu-wen-jian-he-io/"
+								class="btn pre newer-posts newer_posts">上一篇</a>
+							
+							<a href="https://Vir-Limerence.github.io/post/16-java-zheng-ze-biao-da-shi/"
+									class="btn next older-posts older_posts">下一篇</a>
+							
+							<div style="clear:both;height:0;"></div>
+						</div>
+					</div>
+					<div class="round-shape-one"></div>
+					<section>
+						<div class="doc_comments">
+							
+								
+									<div id="gitalk-container"></div>
+									<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/qyxtim/Static@3.8/gitalk.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css" rel="stylesheet">
+<script>
+    var gitalk = new Gitalk({
+        clientID: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        clientSecret: "x5QIsbzH84i1HkDH7IkRMs6s",
+        repo: "", owner:
+            "",
+        admin: [""],
+        id: (location.pathname).substring(0, 49),
+        distractionFreeMode: false
+    });
+    gitalk.render("gitalk-container");
+</script> -->
+<!--评论显示区，请插入合适的位置-->
+<div id="comment"></div>
+<!--Leancloud 操作库:-->
+<script src="https://unpkg.com/leancloud-storage@4.12.0/dist/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el:'#comment',
+        appId: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        appKey: "x5QIsbzH84i1HkDH7IkRMs6s",
+//         masterKey: 'zliw6I1h5Gv3OJfPtEllDP6j'
+        placeholder: 'ヾﾉ≧∀≦)o快来评论一下吧!',
+        avatar:''
+    });
+</script>
+										
+
+											
+														
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<script>
+			"use strict"; !function () { for (var n = document.getElementsByTagName("pre"), e = n.length, s = 0; s < e; s++) { n[s].innerHTML = '<span class="line-number"></span>' + n[s].innerHTML + '<span class="cl"></span>'; for (var a = n[s].innerHTML.split(/\n/).length, r = 0; r < a - 1; r++) { n[s].getElementsByTagName("span")[0].innerHTML += "<span>" + (r + 1) + "</span>" } } }();
+			// 不使用目录的颜色标注
+			// let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a"); 
+			// window.addEventListener("scroll", event => {
+			// 	let fromTop = window.scrollY; mainNavLinks.forEach((link, index) => {
+			// 		let section = document.getElementById(decodeURI(link.hash).substring(1)); 
+			// 		let nextSection = null;
+			// 		if (mainNavLinks[index + 1]) { 
+			// 			nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1)); 
+			// 		}
+			// 		if (section.offsetTop <= fromTop) { 
+			// 			console.log(section);
+			// 			console.log(nextSection?nextSection:0);
+			// 			if (nextSection) { 
+			// 				if (nextSection.offsetTop > fromTop) { 
+			// 					link.classList.add("currentToc"); 
+			// 				} 
+			// 				else {
+			// 					link.classList.remove("currentToc"); 
+			// 				} 
+			// 			} else { 
+			// 				link.classList.add("currentToc"); 
+			// 			} 
+			// 		} else { 
+			// 				link.classList.remove("currentToc"); 
+			// 		}
+			// 	});
+			// });
+			var h = document.documentElement, b = document.body, st = "scrollTop", sh = "scrollHeight", progress = document.querySelector(".progress"), scroll; 
+			document.addEventListener("scroll", function () { scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100; 
+				progress.style.setProperty("--scroll", scroll + "%") });
+			var wxScale = new WxScale({ fullPage: document.querySelector("#fullPage"), canvas: document.querySelector("#canvas") }); var imgBox = document.querySelectorAll("#md_block img"); for (var i = 0; i < imgBox.length; i++) { imgBox[i].onclick = function (e) { wxScale.start(this) } };
+		</script>
+		<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"></a>
+<div class="footer animated fadeInDown">
+    <div class="site_footer">
+        <div class="mysocials">
+            <div class="my_socials">
+                
+                    
+                            
+                    
+                            
+                    
+                            
+                    <a href="https://github.com/Vir-Limerence" title="github"><i
+                                class="iconfont icon-github"></i></a>
+                        
+                            
+                    
+                            
+                    
+                            
+                    
+                            
+            </div>
+        </div>
+    </div>
+</div>
+<!--音乐，只在PC端宽度>1000px时显示-->
+<link rel="stylesheet" href="/media/music/APlayer.min.css">
+<div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3116636104" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<script src="/media/music/APlayer.min.js"></script>
+<script src="/media/music/Meting.min.js"></script>
+<script src="/media/music/instantpage.min.js" type="module" defer></script>
+<!--看板娘-->
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<style>
+    #waifu{
+        right: 20px;
+        left: auto;
+    }
+</style>
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+<script>
+// 等待页面加载完成后再绑定事件
+// window.onload = function() {
+//     // 获取看板娘的 DOM 元素（通常是一个 canvas）
+//     const live2dCanvas = document.getElementById('waifu');
+
+//     // 检查是否成功获取到看板娘的元素
+//     if (live2dCanvas) {
+//         // 添加点击事件监听器
+//         live2dCanvas.addEventListener('click', function() {
+//             // 切换隐藏和显示
+//             if (live2dCanvas.style.display === 'none') {
+//                 live2dCanvas.style.display = 'block'; // 显示
+//             } else {
+//                 live2dCanvas.style.display = 'none';  // 隐藏
+//             }
+//         });
+//     }
+// };
+window.onload = function() {
+    document.getElementById("waifu").addEventListener("click", function() {
+        localStorage.setItem("waifu-display", Date.now());
+
+        document.getElementById("waifu").style.bottom = "-500px";
+        setTimeout(() => {
+            document.getElementById("waifu").style.display = "none";
+            document.getElementById("waifu-toggle").classList.add("waifu-toggle-active");
+        }, 3000);
+    });
+};
+</script>
+
+			<script type="text/javascript" async src="https://Vir-Limerence.github.io/media/js/prism.js"></script>
+</body>
+
+</html>

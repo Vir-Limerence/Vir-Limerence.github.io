@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="shortcut icon" href="https://Vir-Limerence.github.io/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="renderer" content="webkit">
+<meta name="description" content="HIT2022级网络安全研究生，在这里我将会记录一些日常学习研究">
+<meta charset="UTF-8">
+<title>
+	3. Java基础语法 | MAQI&#39; blog
+</title>
+<link href="https://Vir-Limerence.github.io/styles/main.css" type="text/css" rel="stylesheet" />
+<link href="https://at.alicdn.com/t/font_1621793_zatzzgvf30g.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+<script async src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.min.js"></script>
+<script src="https://Vir-Limerence.github.io/media/js/magnify.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script
+	type="text/javascript">function btn_toggle() { document.getElementById("hn").classList.contains("no-js") ? document.getElementById("hn").classList.remove("no-js") : document.getElementById("hn").classList.add("no-js") }
+</script>
+<!--  -->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e2a8873f488fc608a445013cc86317b0";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+	
+
+
+		<link rel="canonical" href="https://Vir-Limerence.github.io/post/3-java-ji-chu-yu-fa/" />
+</head>
+
+<body>
+	<div class="progress"></div>
+<style>
+    body::after {
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: .06;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1
+    }
+
+    body::after {
+        background-image: url(https://img.xjh.me/random_img.php?type=bg&ctype=acg&return=302)
+    }
+
+    .progress {
+        background: linear-gradient(to right, #87ceeb var(--scroll), transparent 0);
+        background-repeat: no-repeat;
+        position: fixed;
+        width: 100%;
+        height: 4px;
+        z-index: 1
+    }
+
+    #blogTitle {
+        background: url(https://img.xjh.me/random_img.php?type=bg&ctype=nature&return=302) center center / cover no-repeat #222;
+        overflow: hidden;
+        width: 100%;
+        height: 40vh;
+        max-height: 40vh;
+        box-shadow: 0 1px 2px rgba(150, 150, 150, .7);
+        text-align: center;
+        display: table
+    }
+
+
+    .vertical {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        position: relative;
+        z-index: 2
+    }
+
+    #Header1_HeaderTitle {
+        font-family: 'Playball', cursive;
+        color: #fff;
+        font-size: 3rem;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        margin: 10px 0 10px 0;
+        letter-spacing: -1px;
+        font-weight: 700;
+        animation: fade-in-down 1s both;
+        animation-delay: .5s
+    }
+
+    .vertical h2 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5em;
+        font-weight: 400;
+        letter-spacing: .01rem;
+        color: rgba(255, 255, 255, 0.8);
+        -webkit-animation: fade-in-down .9s;
+        animation: fade-in-down .9s both;
+        -webkit-animation-delay: .1s;
+        animation-delay: .3s;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
+        overflow: hidden;
+        font-family: 'Playball', cursive
+    }
+
+    .poem-wrap {
+        position: relative;
+        width: 1000px;
+        max-width: 80%;
+        border: 2px solid #797979;
+        border-top: 0;
+        text-align: center;
+        margin: 40px auto
+    }
+
+    .poem-left {
+        left: 0
+    }
+
+    .poem-right {
+        right: 0
+    }
+
+    .poem-border {
+        position: absolute;
+        height: 2px;
+        width: 27%;
+        background-color: #797979
+    }
+
+    .poem-wrap p {
+        width: 70%;
+        margin: auto;
+        line-height: 30px;
+        color: #797979
+    }
+
+    .poem-wrap h1 {
+        position: relative;
+        margin-top: -20px;
+        display: inline-block;
+        letter-spacing: 4px;
+        color: #797979;
+        font-size: 2em;
+        margin-bottom: 20px;
+        /* 将标题位于poem-wrap的正中央 */
+    }
+
+    #poem_sentence {
+        font-size: 25px;
+        color: #797979;
+        /* 设置文字居中 */
+        text-align: center;
+    }
+
+    #poem_info {
+        font-size: 15px;
+        margin: 15px auto;
+        color: #797979;
+        text-align: center;
+    }
+
+    #navList {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        /* 设置字体大小 */
+        font-size: 20px;
+    }
+
+    #navList li {
+        font-family: 'Josefin Sans Light', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "'Hiragino Sans GB", STHeiti, "Microsoft Yahei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+        color: #95a5a6;
+        display: inline-block;
+        padding: 1rem;
+        font-size: 1rem;
+        text-align: center
+    }
+
+    #navList li a {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3)
+    }
+
+    #navList li a:hover {
+        color: #f60;
+        font-weight: 500
+    }
+
+    #navigator {
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+        background: hsla(0, 0%, 100%, .6);
+        z-index: 1;
+    }
+    #starfield {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+</style>
+<div class="darkmode-background"></div>
+<div class="darkmode-layer"></div>
+<noscript>
+    <p class="warn">本页面需要浏览器支持（启用）JavaScript</p>
+</noscript>
+<!-- 添加星星 -->
+<canvas id="starfield"></canvas>
+<script>
+    // 获取画布及上下文
+    var canvas = document.getElementById('starfield');
+    var ctx = canvas.getContext('2d');
+
+    // 设置画布大小
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 创建一个存储星星的数组
+    var stars = [];
+
+    // 创建初始的星星
+    for (var i = 0; i < 200; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            speed: 1 + Math.random() * 5
+        });
+    }
+
+    // 定义一个函数来清除画布
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 定义一个函数来更新星星的位置
+    function update() {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].y += stars[i].speed;
+            if (stars[i].y > canvas.height) {
+                stars[i].y = 0;
+                stars[i].x = Math.random() * canvas.width;
+            }
+        }
+    }
+
+    // 定义一个函数来绘制星星
+    function draw() {
+        for (var i = 0; i < stars.length; i++) {
+            ctx.beginPath();
+            ctx.arc(stars[i].x, stars[i].y, 1, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        }
+    }
+
+    // 定义一个函数来执行动画
+    function animate() {
+        clear();
+        update();
+        draw();
+        requestAnimationFrame(animate);
+    }
+
+    // 启动动画
+    animate();
+</script>
+<!-- 添加星星 -->
+<div class="header">
+    <!-- 添加头部标题 -->
+    <div id="blogTitle" style="margin-bottom: 0px;">
+        <div class="vertical">
+            <h1>
+                <a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="/">
+                    MAQI&#39; blog
+                </a>
+            </h1>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <div id="navigator" style="position: static; top: 0px;">
+        <div class="nav">
+            <ul id="navList">
+                
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/">
+                            首页
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/archives">
+                            归档
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/columns">
+                            专栏
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/tags">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/post/about">
+                            关于
+                        </a>
+                    </li>
+                    
+                        <li>
+                            <form id="gridea-search-form" data-update="1578893743252" action="/search/index.html"><input
+                                    class="search-input" autocomplete="off" spellcheck="false" name="q"
+                                    placeholder="搜索"></form>
+                        </li>
+                        <li>
+                            <input id="switch_default" onclick="mobileBtn()" type="checkbox"
+                                class="switch_default"><label for="switch_default"></label>
+                        </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <!-- 添加古诗词 -->
+    <div class="poem-wrap">
+        <div class="poem-border poem-left"></div>
+        <div class="poem-border poem-right"></div>
+        <h1>念两句诗</h1>
+        <div id="poem_sentence"></div>
+        <div id="poem_info"></div>
+    </div>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        jinrishici.load(function (result) {
+            var sentence = document.querySelector("#poem_sentence")
+            var info = document.querySelector("#poem_info")
+            sentence.innerHTML = result.data.content
+            info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+        });
+    </script>
+    <!-- 添加古诗词 -->
+</div>
+<!--调节亮度-->
+<script>
+    function enableDarkmode() {
+        document.body.classList.add("darkmode");
+        document.getElementById("switch_default").checked = true;
+        document.getElementById("switch_default_h").checked = true;
+    }
+
+    function removeDarkmode() {
+        document.body.classList.remove("darkmode");
+        document.getElementById("switch_default").checked = false;
+        document.getElementById("switch_default_h").checked = false;
+    }
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+
+    // 删除或注释掉以下行，以防止页面加载时自动启用暗色模式
+    // var cookie = getCookie("darkmode");
+    // if ("enable" === cookie) enableDarkmode();
+
+    // 如果您希望根据系统的首选项颜色方案自动切换，可以保留以下代码
+    // 但是请确保"disable"不在cookie中
+    // if (window.matchMedia("(prefers-color-scheme: dark)").matches && "disable" !== cookie) {
+    //     enableDarkmode();
+    //     document.cookie = "darkmode=enable; path=/";
+    // }
+
+    var mobileBtn = function() {
+        if (document.getElementById("switch_default").checked) {
+            enableDarkmode();
+            document.cookie = "darkmode=enable; path=/";
+        } else {
+            removeDarkmode();
+            document.cookie = "darkmode=disable; path=/";
+        }
+    };
+</script>
+		<div class="main">
+			<div class="main-inner">
+				<div class="content">
+					<article class="post">
+						<h2 class="post_title sm_margin"><a>
+								3. Java基础语法
+							</a></h2>
+						<script>function lan() { if (document.getElementById("lan").innerText == "繁") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_tw.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "简" } else { if (document.getElementById("lan").innerText == "簡") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_cn.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "繁" } } };</script>
+						<section class="post_details"><i class="iconfont icon-calendar"></i><span
+								style="margin-right:15px">
+								2023-05-28
+							</span><i class="iconfont icon-browse"></i><span style="margin-right:15px"> <span
+									id="busuanzi_value_page_pv"></span>浏览</span>
+									<i class="iconfont icon-category"></i>
+								<!-- <span class="weaklink" style="margin-right:15px"> -->
+								 <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+										JAVA速记
+									</a>
+									
+								
+							</span><i class="iconfont icon-caret-down"></i><span style="margin-right:15px">
+								1450字
+							</span><i class="iconfont icon-naozhong"></i><span style="margin-right:15px">
+								6 min read
+							</span><a id="lan" href="javascript:void(0);" onclick="lan();" title="调整简繁体"
+								style="margin-right:15px;">繁</a>
+							
+						</section>
+						
+							<!-- <img class="featureImg" alt="featureimg" src="https://img.xjh.me/img/57888840_p0.jpg"
+								referrerpolicy="no-referrer">
+							 -->
+								<div style="display:flex">
+									<div class="markdown-body" id="md_block">
+										<div class="round-shape-one"></div>
+										<h1 id="示例">示例</h1>
+<p>一个Java程序可以认为是一系列对象的集合，这些对象通过调用彼此的方法来协同工作，下面介绍下类、对象、方法和示例变量的概念。</p>
+<ul>
+<li>对象：对象是类的实例，有状态和行为。</li>
+<li>类：类是模板，描述与一类对象的行为和状态。</li>
+<li>方法：方法是行为，一个类可以有多个方法。</li>
+<li>实例变量：每个对象都有独特的实例变量，这些对象的状态由实例变量的值决定。</li>
+</ul>
+<pre><code class="language-java">public class HelloWorld {
+    /* 第一个Java程序
+     * 它将输出字符串 Hello World
+     */
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello World&quot;); // 输出 Hello World
+    }
+}
+</code></pre>
+<p><img src="https://Vir-Limerence.github.io/post-images/1685262586490.jpg" alt="" loading="lazy"><br>
+对于上面这样一个简单的java程序，需要先通过javac编译，然后使用java执行编译后的程序，如果遇到编码问题，我们还可以使用<code>-encoding</code>选项指定编译：</p>
+<pre><code class="language-shell">javac -encoding UTF-8 HelloWorld.java 
+java HelloWorld 
+</code></pre>
+<h1 id="基本语法">基本语法</h1>
+<ul>
+<li>java是大小写敏感的</li>
+<li>对于java中的所有类来说，类名的首字母应该是大写的，如果类名由若干个单词组成，每个单词的首字母应该大写</li>
+<li>所有的方法都应该是以小写字母开头的，如果方法含有若干单词，后面的每个单词首字母大写</li>
+<li>源文件名和类名必须相同，保存文件时使用类名作为文件名保存，文件名的后缀为.java</li>
+<li>所有java程序由<strong>public static void main(String[] args)</strong> 方法开始执行。</li>
+</ul>
+<h1 id="java标识符">Java标识符</h1>
+<p>Java中所有的组成部分都需要名字。类名、变量名和方法名都被称之为标识符。</p>
+<p>注意：</p>
+<ul>
+<li>所有的标识符都应该以字母、美元符$、或者下划线_开始</li>
+<li>首字符之后可以是字母、数字、美元符和下划线的任意组合</li>
+<li>关键字不能用作标识符</li>
+<li>标识符是大小写敏感的</li>
+</ul>
+<h1 id="java修饰符">Java修饰符</h1>
+<p>java中可以使用修饰符来修饰类中方法和属性。主要有两类修饰符：</p>
+<ul>
+<li>访问控制修饰符：default, public , protected, private</li>
+<li>非访问控制修饰符：final, abstract, static, synchronized</li>
+</ul>
+<h1 id="java变量">Java变量</h1>
+<p>Java中主要有如下几种类型的变量：</p>
+<ul>
+<li>局部变量</li>
+<li>类变量（静态变量）</li>
+<li>成员变量（非静态变量）</li>
+</ul>
+<h1 id="java数组">Java数组</h1>
+<p>数组是存储在堆上的对象，可以保存多个同类型的变量。</p>
+<h1 id="java枚举">Java枚举</h1>
+<p>Java 5.0引入了枚举，枚举限制变量只能是预先设定好的值。使用枚举可以减少代码中的 bug。</p>
+<h1 id="java关键字">Java关键字</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类别</th>
+<th style="text-align:center">关键字</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">访问控制</td>
+<td style="text-align:center">private</td>
+<td style="text-align:center">私有的</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">protected</td>
+<td style="text-align:center">受保护的</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">public</td>
+<td style="text-align:center">公共的</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">default</td>
+<td style="text-align:center">默认</td>
+</tr>
+<tr>
+<td style="text-align:center">类、方法和变量修饰符</td>
+<td style="text-align:center">abstract</td>
+<td style="text-align:center">声明抽象</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">class</td>
+<td style="text-align:center">类</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">extends</td>
+<td style="text-align:center">扩充,继承</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">final</td>
+<td style="text-align:center">最终值,不可改变的</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">implements</td>
+<td style="text-align:center">实现（接口）</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">interface</td>
+<td style="text-align:center">接口</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">native</td>
+<td style="text-align:center">本地，原生方法（非 Java 实现）</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">new</td>
+<td style="text-align:center">新,创建</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">static</td>
+<td style="text-align:center">静态</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">strictfp</td>
+<td style="text-align:center">严格,精准</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">synchronized</td>
+<td style="text-align:center">线程,同步</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">transient</td>
+<td style="text-align:center">短暂</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">volatile</td>
+<td style="text-align:center">易失</td>
+</tr>
+<tr>
+<td style="text-align:center">程序控制语句</td>
+<td style="text-align:center">break</td>
+<td style="text-align:center">跳出循环</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">case</td>
+<td style="text-align:center">定义一个值以供 switch 选择</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">continue</td>
+<td style="text-align:center">继续</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">do</td>
+<td style="text-align:center">运行</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">else</td>
+<td style="text-align:center">否则</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">for</td>
+<td style="text-align:center">循环</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">if</td>
+<td style="text-align:center">如果</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">instanceof</td>
+<td style="text-align:center">实例</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">return</td>
+<td style="text-align:center">返回</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">switch</td>
+<td style="text-align:center">根据值选择执行</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">while</td>
+<td style="text-align:center">循环</td>
+</tr>
+<tr>
+<td style="text-align:center">错误处理</td>
+<td style="text-align:center">assert</td>
+<td style="text-align:center">断言表达式是否为真</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">catch</td>
+<td style="text-align:center">捕捉异常</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">finally</td>
+<td style="text-align:center">有没有异常都执行</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">throw</td>
+<td style="text-align:center">抛出一个异常对象</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">throws</td>
+<td style="text-align:center">声明一个异常可能被抛出</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">try</td>
+<td style="text-align:center">捕获异常</td>
+</tr>
+<tr>
+<td style="text-align:center">包相关</td>
+<td style="text-align:center">import</td>
+<td style="text-align:center">引入</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">package</td>
+<td style="text-align:center">包</td>
+</tr>
+<tr>
+<td style="text-align:center">基本类型</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">布尔型</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">字节型</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">char</td>
+<td style="text-align:center">字符型</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">double</td>
+<td style="text-align:center">双精度浮点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">float</td>
+<td style="text-align:center">单精度浮点</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">整型</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">long</td>
+<td style="text-align:center">长整型</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">short</td>
+<td style="text-align:center">短整型</td>
+</tr>
+<tr>
+<td style="text-align:center">变量引用</td>
+<td style="text-align:center">super</td>
+<td style="text-align:center">父类,超类</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">this</td>
+<td style="text-align:center">本类</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">void</td>
+<td style="text-align:center">无返回值</td>
+</tr>
+<tr>
+<td style="text-align:center">保留关键字</td>
+<td style="text-align:center">goto</td>
+<td style="text-align:center">是关键字，但不能使用</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">const</td>
+<td style="text-align:center">是关键字，但不能使用</td>
+</tr>
+</tbody>
+</table>
+<p>**注意：**Java 的 null 不是关键字，类似于 true 和 false，它是一个字面常量，不允许作为标识符使用。</p>
+<h1 id="java注释">Java注释</h1>
+<p>类似于 C/C++、Java 也支持单行以及多行注释。注释中的字符将被 Java 编译器忽略。</p>
+<h2 id="java-空行">Java 空行</h2>
+<p>空白行或者有注释的行，Java 编译器都会忽略掉。</p>
+<h2 id="继承">继承</h2>
+<p>在 Java 中，一个类可以由其他类派生。如果你要创建一个类，而且已经存在一个类具有你所需要的属性或方法，那么你可以将新创建的类继承该类。</p>
+<p>利用继承的方法，可以重用已存在类的方法和属性，而不用重写这些代码。被继承的类称为超类（super class），派生类称为子类（sub class）。</p>
+<h2 id="接口">接口</h2>
+<p>在 Java 中，接口可理解为对象间相互通信的协议。接口在继承中扮演着很重要的角色。</p>
+<p>接口只定义派生要用到的方法，但是方法的具体实现完全取决于派生类。</p>
+<p>Java中的接口是一种特殊的抽象类，它只包含抽象方法和常量字段的定义，没有实例变量和实现方法。接口可以被其他类实现(implement)或者继承(extend)，实现接口的类必须覆盖接口中所有的抽象方法，并且可以提供自己的实现逻辑。这允许类间的松耦合，提高代码的可维护性和扩展性。同时，接口也可以用于多重继承，即一个类可以实现多个接口。</p>
+<p>接口的定义格式如下：</p>
+<pre><code class="language-java">[public] interface 接口名称 [extends 接口列表] {
+    // 常量字段声明
+    // 抽象方法定义
+}
+</code></pre>
+<p>其中，<code>public</code>表示该接口对所有类可见，省略<code>public</code>则表示该接口仅对同包中的类可见；<code>extends</code>后面跟着接口列表，表示该接口继承自其他接口。</p>
+<h1 id="java-源程序与编译型运行区别">Java 源程序与编译型运行区别</h1>
+<figure data-type="image" tabindex="1"><img src="https://www.runoob.com/wp-content/uploads/2013/12/ZSSDMld.png" alt="img" loading="lazy"></figure>
+
+											<span id="footnote"></span>
+											<div id="warn"></div>
+									</div>
+									<!-- <div class="toc-container">
+										这段是目录
+										<ul class="markdownIt-TOC">
+<li><a href="#%E7%A4%BA%E4%BE%8B">示例</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">基本语法</a></li>
+<li><a href="#java%E6%A0%87%E8%AF%86%E7%AC%A6">Java标识符</a></li>
+<li><a href="#java%E4%BF%AE%E9%A5%B0%E7%AC%A6">Java修饰符</a></li>
+<li><a href="#java%E5%8F%98%E9%87%8F">Java变量</a></li>
+<li><a href="#java%E6%95%B0%E7%BB%84">Java数组</a></li>
+<li><a href="#java%E6%9E%9A%E4%B8%BE">Java枚举</a></li>
+<li><a href="#java%E5%85%B3%E9%94%AE%E5%AD%97">Java关键字</a></li>
+<li><a href="#java%E6%B3%A8%E9%87%8A">Java注释</a>
+<ul>
+<li><a href="#java-%E7%A9%BA%E8%A1%8C">Java 空行</a></li>
+<li><a href="#%E7%BB%A7%E6%89%BF">继承</a></li>
+<li><a href="#%E6%8E%A5%E5%8F%A3">接口</a></li>
+</ul>
+</li>
+<li><a href="#java-%E6%BA%90%E7%A8%8B%E5%BA%8F%E4%B8%8E%E7%BC%96%E8%AF%91%E5%9E%8B%E8%BF%90%E8%A1%8C%E5%8C%BA%E5%88%AB">Java 源程序与编译型运行区别</a></li>
+</ul>
+
+									</div> -->
+								</div>
+								<div id="fullPage"><canvas id="canvas"></canvas></div>
+					</article>
+					<div id="eof"><span>EOF</span></div>
+					<div class="paginator pager pagination">
+						<div class="paginator_container pagination_container">
+							<a href="https://Vir-Limerence.github.io/post/4-java-dui-xiang-he-lei/"
+								class="btn pre newer-posts newer_posts">上一篇</a>
+							
+							<a href="https://Vir-Limerence.github.io/post/2-java-jian-jie/"
+									class="btn next older-posts older_posts">下一篇</a>
+							
+							<div style="clear:both;height:0;"></div>
+						</div>
+					</div>
+					<div class="round-shape-one"></div>
+					<section>
+						<div class="doc_comments">
+							
+								
+									<div id="gitalk-container"></div>
+									<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/qyxtim/Static@3.8/gitalk.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css" rel="stylesheet">
+<script>
+    var gitalk = new Gitalk({
+        clientID: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        clientSecret: "x5QIsbzH84i1HkDH7IkRMs6s",
+        repo: "", owner:
+            "",
+        admin: [""],
+        id: (location.pathname).substring(0, 49),
+        distractionFreeMode: false
+    });
+    gitalk.render("gitalk-container");
+</script> -->
+<!--评论显示区，请插入合适的位置-->
+<div id="comment"></div>
+<!--Leancloud 操作库:-->
+<script src="https://unpkg.com/leancloud-storage@4.12.0/dist/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el:'#comment',
+        appId: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        appKey: "x5QIsbzH84i1HkDH7IkRMs6s",
+//         masterKey: 'zliw6I1h5Gv3OJfPtEllDP6j'
+        placeholder: 'ヾﾉ≧∀≦)o快来评论一下吧!',
+        avatar:''
+    });
+</script>
+										
+
+											
+														
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<script>
+			"use strict"; !function () { for (var n = document.getElementsByTagName("pre"), e = n.length, s = 0; s < e; s++) { n[s].innerHTML = '<span class="line-number"></span>' + n[s].innerHTML + '<span class="cl"></span>'; for (var a = n[s].innerHTML.split(/\n/).length, r = 0; r < a - 1; r++) { n[s].getElementsByTagName("span")[0].innerHTML += "<span>" + (r + 1) + "</span>" } } }();
+			// 不使用目录的颜色标注
+			// let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a"); 
+			// window.addEventListener("scroll", event => {
+			// 	let fromTop = window.scrollY; mainNavLinks.forEach((link, index) => {
+			// 		let section = document.getElementById(decodeURI(link.hash).substring(1)); 
+			// 		let nextSection = null;
+			// 		if (mainNavLinks[index + 1]) { 
+			// 			nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1)); 
+			// 		}
+			// 		if (section.offsetTop <= fromTop) { 
+			// 			console.log(section);
+			// 			console.log(nextSection?nextSection:0);
+			// 			if (nextSection) { 
+			// 				if (nextSection.offsetTop > fromTop) { 
+			// 					link.classList.add("currentToc"); 
+			// 				} 
+			// 				else {
+			// 					link.classList.remove("currentToc"); 
+			// 				} 
+			// 			} else { 
+			// 				link.classList.add("currentToc"); 
+			// 			} 
+			// 		} else { 
+			// 				link.classList.remove("currentToc"); 
+			// 		}
+			// 	});
+			// });
+			var h = document.documentElement, b = document.body, st = "scrollTop", sh = "scrollHeight", progress = document.querySelector(".progress"), scroll; 
+			document.addEventListener("scroll", function () { scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100; 
+				progress.style.setProperty("--scroll", scroll + "%") });
+			var wxScale = new WxScale({ fullPage: document.querySelector("#fullPage"), canvas: document.querySelector("#canvas") }); var imgBox = document.querySelectorAll("#md_block img"); for (var i = 0; i < imgBox.length; i++) { imgBox[i].onclick = function (e) { wxScale.start(this) } };
+		</script>
+		<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"></a>
+<div class="footer animated fadeInDown">
+    <div class="site_footer">
+        <div class="mysocials">
+            <div class="my_socials">
+                
+                    
+                            
+                    
+                            
+                    
+                            
+                    <a href="https://github.com/Vir-Limerence" title="github"><i
+                                class="iconfont icon-github"></i></a>
+                        
+                            
+                    
+                            
+                    
+                            
+                    
+                            
+            </div>
+        </div>
+    </div>
+</div>
+<!--音乐，只在PC端宽度>1000px时显示-->
+<link rel="stylesheet" href="/media/music/APlayer.min.css">
+<div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3116636104" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<script src="/media/music/APlayer.min.js"></script>
+<script src="/media/music/Meting.min.js"></script>
+<script src="/media/music/instantpage.min.js" type="module" defer></script>
+<!--看板娘-->
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<style>
+    #waifu{
+        right: 20px;
+        left: auto;
+    }
+</style>
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+<script>
+// 等待页面加载完成后再绑定事件
+// window.onload = function() {
+//     // 获取看板娘的 DOM 元素（通常是一个 canvas）
+//     const live2dCanvas = document.getElementById('waifu');
+
+//     // 检查是否成功获取到看板娘的元素
+//     if (live2dCanvas) {
+//         // 添加点击事件监听器
+//         live2dCanvas.addEventListener('click', function() {
+//             // 切换隐藏和显示
+//             if (live2dCanvas.style.display === 'none') {
+//                 live2dCanvas.style.display = 'block'; // 显示
+//             } else {
+//                 live2dCanvas.style.display = 'none';  // 隐藏
+//             }
+//         });
+//     }
+// };
+window.onload = function() {
+    document.getElementById("waifu").addEventListener("click", function() {
+        localStorage.setItem("waifu-display", Date.now());
+
+        document.getElementById("waifu").style.bottom = "-500px";
+        setTimeout(() => {
+            document.getElementById("waifu").style.display = "none";
+            document.getElementById("waifu-toggle").classList.add("waifu-toggle-active");
+        }, 3000);
+    });
+};
+</script>
+
+			<script type="text/javascript" async src="https://Vir-Limerence.github.io/media/js/prism.js"></script>
+</body>
+
+</html>

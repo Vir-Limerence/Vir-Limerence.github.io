@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="shortcut icon" href="https://Vir-Limerence.github.io/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="renderer" content="webkit">
+<meta name="description" content="HIT2022级网络安全研究生，在这里我将会记录一些日常学习研究">
+<meta charset="UTF-8">
+<title>
+	26. Java接口 | MAQI&#39; blog
+</title>
+<link href="https://Vir-Limerence.github.io/styles/main.css" type="text/css" rel="stylesheet" />
+<link href="https://at.alicdn.com/t/font_1621793_zatzzgvf30g.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+<script async src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.min.js"></script>
+<script src="https://Vir-Limerence.github.io/media/js/magnify.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script
+	type="text/javascript">function btn_toggle() { document.getElementById("hn").classList.contains("no-js") ? document.getElementById("hn").classList.remove("no-js") : document.getElementById("hn").classList.add("no-js") }
+</script>
+<!--  -->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e2a8873f488fc608a445013cc86317b0";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+	
+
+
+		<link rel="canonical" href="https://Vir-Limerence.github.io/post/26-java-jie-kou/" />
+</head>
+
+<body>
+	<div class="progress"></div>
+<style>
+    body::after {
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: .06;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1
+    }
+
+    body::after {
+        background-image: url(https://img.xjh.me/random_img.php?type=bg&ctype=acg&return=302)
+    }
+
+    .progress {
+        background: linear-gradient(to right, #87ceeb var(--scroll), transparent 0);
+        background-repeat: no-repeat;
+        position: fixed;
+        width: 100%;
+        height: 4px;
+        z-index: 1
+    }
+
+    #blogTitle {
+        background: url(https://img.xjh.me/random_img.php?type=bg&ctype=nature&return=302) center center / cover no-repeat #222;
+        overflow: hidden;
+        width: 100%;
+        height: 40vh;
+        max-height: 40vh;
+        box-shadow: 0 1px 2px rgba(150, 150, 150, .7);
+        text-align: center;
+        display: table
+    }
+
+
+    .vertical {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        position: relative;
+        z-index: 2
+    }
+
+    #Header1_HeaderTitle {
+        font-family: 'Playball', cursive;
+        color: #fff;
+        font-size: 3rem;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        margin: 10px 0 10px 0;
+        letter-spacing: -1px;
+        font-weight: 700;
+        animation: fade-in-down 1s both;
+        animation-delay: .5s
+    }
+
+    .vertical h2 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5em;
+        font-weight: 400;
+        letter-spacing: .01rem;
+        color: rgba(255, 255, 255, 0.8);
+        -webkit-animation: fade-in-down .9s;
+        animation: fade-in-down .9s both;
+        -webkit-animation-delay: .1s;
+        animation-delay: .3s;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
+        overflow: hidden;
+        font-family: 'Playball', cursive
+    }
+
+    .poem-wrap {
+        position: relative;
+        width: 1000px;
+        max-width: 80%;
+        border: 2px solid #797979;
+        border-top: 0;
+        text-align: center;
+        margin: 40px auto
+    }
+
+    .poem-left {
+        left: 0
+    }
+
+    .poem-right {
+        right: 0
+    }
+
+    .poem-border {
+        position: absolute;
+        height: 2px;
+        width: 27%;
+        background-color: #797979
+    }
+
+    .poem-wrap p {
+        width: 70%;
+        margin: auto;
+        line-height: 30px;
+        color: #797979
+    }
+
+    .poem-wrap h1 {
+        position: relative;
+        margin-top: -20px;
+        display: inline-block;
+        letter-spacing: 4px;
+        color: #797979;
+        font-size: 2em;
+        margin-bottom: 20px;
+        /* 将标题位于poem-wrap的正中央 */
+    }
+
+    #poem_sentence {
+        font-size: 25px;
+        color: #797979;
+        /* 设置文字居中 */
+        text-align: center;
+    }
+
+    #poem_info {
+        font-size: 15px;
+        margin: 15px auto;
+        color: #797979;
+        text-align: center;
+    }
+
+    #navList {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        /* 设置字体大小 */
+        font-size: 20px;
+    }
+
+    #navList li {
+        font-family: 'Josefin Sans Light', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "'Hiragino Sans GB", STHeiti, "Microsoft Yahei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+        color: #95a5a6;
+        display: inline-block;
+        padding: 1rem;
+        font-size: 1rem;
+        text-align: center
+    }
+
+    #navList li a {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3)
+    }
+
+    #navList li a:hover {
+        color: #f60;
+        font-weight: 500
+    }
+
+    #navigator {
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+        background: hsla(0, 0%, 100%, .6);
+        z-index: 1;
+    }
+    #starfield {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+</style>
+<div class="darkmode-background"></div>
+<div class="darkmode-layer"></div>
+<noscript>
+    <p class="warn">本页面需要浏览器支持（启用）JavaScript</p>
+</noscript>
+<!-- 添加星星 -->
+<canvas id="starfield"></canvas>
+<script>
+    // 获取画布及上下文
+    var canvas = document.getElementById('starfield');
+    var ctx = canvas.getContext('2d');
+
+    // 设置画布大小
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 创建一个存储星星的数组
+    var stars = [];
+
+    // 创建初始的星星
+    for (var i = 0; i < 200; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            speed: 1 + Math.random() * 5
+        });
+    }
+
+    // 定义一个函数来清除画布
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 定义一个函数来更新星星的位置
+    function update() {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].y += stars[i].speed;
+            if (stars[i].y > canvas.height) {
+                stars[i].y = 0;
+                stars[i].x = Math.random() * canvas.width;
+            }
+        }
+    }
+
+    // 定义一个函数来绘制星星
+    function draw() {
+        for (var i = 0; i < stars.length; i++) {
+            ctx.beginPath();
+            ctx.arc(stars[i].x, stars[i].y, 1, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        }
+    }
+
+    // 定义一个函数来执行动画
+    function animate() {
+        clear();
+        update();
+        draw();
+        requestAnimationFrame(animate);
+    }
+
+    // 启动动画
+    animate();
+</script>
+<!-- 添加星星 -->
+<div class="header">
+    <!-- 添加头部标题 -->
+    <div id="blogTitle" style="margin-bottom: 0px;">
+        <div class="vertical">
+            <h1>
+                <a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="/">
+                    MAQI&#39; blog
+                </a>
+            </h1>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <div id="navigator" style="position: static; top: 0px;">
+        <div class="nav">
+            <ul id="navList">
+                
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/">
+                            首页
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/archives">
+                            归档
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/columns">
+                            专栏
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/tags">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/post/about">
+                            关于
+                        </a>
+                    </li>
+                    
+                        <li>
+                            <form id="gridea-search-form" data-update="1578893743252" action="/search/index.html"><input
+                                    class="search-input" autocomplete="off" spellcheck="false" name="q"
+                                    placeholder="搜索"></form>
+                        </li>
+                        <li>
+                            <input id="switch_default" onclick="mobileBtn()" type="checkbox"
+                                class="switch_default"><label for="switch_default"></label>
+                        </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <!-- 添加古诗词 -->
+    <div class="poem-wrap">
+        <div class="poem-border poem-left"></div>
+        <div class="poem-border poem-right"></div>
+        <h1>念两句诗</h1>
+        <div id="poem_sentence"></div>
+        <div id="poem_info"></div>
+    </div>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        jinrishici.load(function (result) {
+            var sentence = document.querySelector("#poem_sentence")
+            var info = document.querySelector("#poem_info")
+            sentence.innerHTML = result.data.content
+            info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+        });
+    </script>
+    <!-- 添加古诗词 -->
+</div>
+<!--调节亮度-->
+<script>
+    function enableDarkmode() {
+        document.body.classList.add("darkmode");
+        document.getElementById("switch_default").checked = true;
+        document.getElementById("switch_default_h").checked = true;
+    }
+
+    function removeDarkmode() {
+        document.body.classList.remove("darkmode");
+        document.getElementById("switch_default").checked = false;
+        document.getElementById("switch_default_h").checked = false;
+    }
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+
+    // 删除或注释掉以下行，以防止页面加载时自动启用暗色模式
+    // var cookie = getCookie("darkmode");
+    // if ("enable" === cookie) enableDarkmode();
+
+    // 如果您希望根据系统的首选项颜色方案自动切换，可以保留以下代码
+    // 但是请确保"disable"不在cookie中
+    // if (window.matchMedia("(prefers-color-scheme: dark)").matches && "disable" !== cookie) {
+    //     enableDarkmode();
+    //     document.cookie = "darkmode=enable; path=/";
+    // }
+
+    var mobileBtn = function() {
+        if (document.getElementById("switch_default").checked) {
+            enableDarkmode();
+            document.cookie = "darkmode=enable; path=/";
+        } else {
+            removeDarkmode();
+            document.cookie = "darkmode=disable; path=/";
+        }
+    };
+</script>
+		<div class="main">
+			<div class="main-inner">
+				<div class="content">
+					<article class="post">
+						<h2 class="post_title sm_margin"><a>
+								26. Java接口
+							</a></h2>
+						<script>function lan() { if (document.getElementById("lan").innerText == "繁") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_tw.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "简" } else { if (document.getElementById("lan").innerText == "簡") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_cn.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "繁" } } };</script>
+						<section class="post_details"><i class="iconfont icon-calendar"></i><span
+								style="margin-right:15px">
+								2023-06-04
+							</span><i class="iconfont icon-browse"></i><span style="margin-right:15px"> <span
+									id="busuanzi_value_page_pv"></span>浏览</span>
+									<i class="iconfont icon-category"></i>
+								<!-- <span class="weaklink" style="margin-right:15px"> -->
+								 <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+										JAVA速记
+									</a>
+									
+								
+							</span><i class="iconfont icon-caret-down"></i><span style="margin-right:15px">
+								1327字
+							</span><i class="iconfont icon-naozhong"></i><span style="margin-right:15px">
+								5 min read
+							</span><a id="lan" href="javascript:void(0);" onclick="lan();" title="调整简繁体"
+								style="margin-right:15px;">繁</a>
+							
+						</section>
+						
+							<!-- <img class="featureImg" alt="featureimg" src="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn//large/a15b4afely1fnt9dbypplj21hc0u07wk.jpg"
+								referrerpolicy="no-referrer">
+							 -->
+								<div style="display:flex">
+									<div class="markdown-body" id="md_block">
+										<div class="round-shape-one"></div>
+										<h1 id="接口的特点">接口的特点</h1>
+<ul>
+<li>接口通常以interface来声明，一个类通过继承接口的方式来继承接口的抽象方法</li>
+<li>接口不是类，包含类要实现的方法</li>
+<li>除非实现接口的类是抽象类，否则该类要定义接口中的所有方法</li>
+<li>接口无法被实例化，但可以被实现。一个实现接口的类，必须实现接口内所描述的所有方法，否则就必须声明为抽象类。</li>
+<li>接口类型可用来声明一个变量，他们可以成为一个空指针，或是被绑定在一个以此接口实现的对象。</li>
+</ul>
+<h1 id="接口与类的区别">接口与类的区别</h1>
+<ul>
+<li>接口不能用于实例化对象</li>
+<li>接口没有构造方法</li>
+<li>接口中所有的方法必须是抽象方法。Java 8 之后 接口中可以使用 default 关键字修饰的非抽象方法。</li>
+<li>接口不能包含成员变量，除了static和final变量</li>
+<li>接口不是被类继承了，而是要被类实现</li>
+<li>接口支持多继承</li>
+</ul>
+<h1 id="接口特性">接口特性</h1>
+<ul>
+<li>接口中每一个方法也是隐式抽象的,接口中的方法会被隐式的指定为 <strong>public abstract</strong>（只能是 public abstract，其他修饰符都会报错）。</li>
+<li>接口中可以含有变量，但是接口中的变量会被隐式的指定为 <strong>public static final</strong> 变量（并且只能是 public，用 private 修饰会报编译错误）。</li>
+<li>接口中的方法是不能在接口中实现的，只能由实现接口的类来实现接口中的方法。</li>
+</ul>
+<h1 id="抽象类和接口的区别">抽象类和接口的区别</h1>
+<ul>
+<li>抽象类中的方法可以有方法体，就是能实现方法的具体功能，但是接口中的方法不行。</li>
+<li>抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是 <strong>public static final</strong> 类型的。</li>
+<li>接口中不能含有静态代码块以及静态方法(用 static 修饰的方法)，而抽象类是可以有静态代码块和静态方法。</li>
+<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
+</ul>
+<p><strong>注</strong>：JDK 1.8 以后，接口里可以有静态方法和方法体了。</p>
+<p><strong>注</strong>：JDK 1.8 以后，接口允许包含具体实现的方法，该方法称为&quot;默认方法&quot;，默认方法使用 default 关键字修饰。更多内容可参考 <a href="https://www.runoob.com/java/java8-default-methods.html">Java 8 默认方法</a>。</p>
+<p><strong>注</strong>：JDK 1.9 以后，允许将方法定义为 private，使得某些复用的代码不会把方法暴露出去。更多内容可参考 <a href="https://www.runoob.com/java/java9-private-interface-methods.html">Java 9 私有接口方法</a>。</p>
+<h1 id="接口的声明">接口的声明</h1>
+<pre><code class="language-java">[可见度] interface 接口名称 [extends 其他的接口名] {
+        // 声明变量
+        // 抽象方法
+}
+</code></pre>
+<ul>
+<li>接口是隐式抽象的，当声明一个接口的时候，不必使用<strong>abstract</strong>关键字。</li>
+<li>接口中每一个方法也是隐式抽象的，声明时同样不需要<strong>abstract</strong>关键字。</li>
+<li>接口中的方法都是公有的。</li>
+</ul>
+<h1 id="接口的实现">接口的实现</h1>
+<p>当类实现接口的时候，必须实现接口中的所有方法，否则必须声明为抽象的类。类使用implements关键字实现接口。在类声明中，Implements关键字放在class声明后面。</p>
+<pre><code class="language-java">...implements 接口名称[, 其他接口名称, 其他接口名称..., ...] ...
+</code></pre>
+<p>重写接口中声明的方法：</p>
+<ul>
+<li>类在实现接口的方法时，不能抛出强制性异常，只能在接口中，或者继承接口的抽象类中抛出该强制性异常</li>
+<li>类在重写方法时要保持一致的方法名，并且应该保持相同或者相兼容的返回值类型。</li>
+<li>如果实现接口的类是抽象类，那么就没必要实现该接口的方法。</li>
+</ul>
+<p>实现接口注意的规则：</p>
+<ul>
+<li>一个类可以同时实现多个接口。</li>
+<li>一个类只能继承一个类，但是能实现多个接口。</li>
+<li>一个接口能继承另一个接口，这和类之间的继承比较相似。</li>
+</ul>
+<h1 id="标记接口">标记接口</h1>
+<p>最常用的接口是不包含任何方法的接口，标记接口是没有任何方法和属性的接口.它仅仅表明它的类属于一个特定的类型,供其他代码来测试允许做一些事情。</p>
+<p>标记接口作用：简单形象的说就是给某个对象打个标（盖个戳），使对象拥有某个或某些特权。</p>
+<pre><code class="language-java">package java.util;
+public interface EventListener
+{}
+</code></pre>
+<p>没有任何方法的接口被称为标记接口。标记接口主要用于以下两种目的：</p>
+<ul>
+<li>
+<p>建立一个公共的父接口：</p>
+<p>正如EventListener接口，这是由几十个其他接口扩展的Java API，你可以使用一个标记接口来建立一组接口的父接口。例如：当一个接口继承了EventListener接口，Java虚拟机(JVM)就知道该接口将要被用于一个事件的代理方案。</p>
+</li>
+<li>
+<p>像一个类添加数据类型：</p>
+<p>这种情况是标记接口最初的目的，实现标记接口的类不需要定义任何接口方法(因为标记接口根本就没有方法)，但是该类通过多态性变成一个接口类型。</p>
+</li>
+</ul>
+
+											<span id="footnote"></span>
+											<div id="warn"></div>
+									</div>
+									<!-- <div class="toc-container">
+										这段是目录
+										<ul class="markdownIt-TOC">
+<li><a href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%89%B9%E7%82%B9">接口的特点</a></li>
+<li><a href="#%E6%8E%A5%E5%8F%A3%E4%B8%8E%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB">接口与类的区别</a></li>
+<li><a href="#%E6%8E%A5%E5%8F%A3%E7%89%B9%E6%80%A7">接口特性</a></li>
+<li><a href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB">抽象类和接口的区别</a></li>
+<li><a href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%A3%B0%E6%98%8E">接口的声明</a></li>
+<li><a href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0">接口的实现</a></li>
+<li><a href="#%E6%A0%87%E8%AE%B0%E6%8E%A5%E5%8F%A3">标记接口</a></li>
+</ul>
+
+									</div> -->
+								</div>
+								<div id="fullPage"><canvas id="canvas"></canvas></div>
+					</article>
+					<div id="eof"><span>EOF</span></div>
+					<div class="paginator pager pagination">
+						<div class="paginator_container pagination_container">
+							<a href="https://Vir-Limerence.github.io/post/27-java-mei-ju-enum/"
+								class="btn pre newer-posts newer_posts">上一篇</a>
+							
+							<a href="https://Vir-Limerence.github.io/post/25-java-feng-zhuang/"
+									class="btn next older-posts older_posts">下一篇</a>
+							
+							<div style="clear:both;height:0;"></div>
+						</div>
+					</div>
+					<div class="round-shape-one"></div>
+					<section>
+						<div class="doc_comments">
+							
+								
+									<div id="gitalk-container"></div>
+									<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/qyxtim/Static@3.8/gitalk.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css" rel="stylesheet">
+<script>
+    var gitalk = new Gitalk({
+        clientID: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        clientSecret: "x5QIsbzH84i1HkDH7IkRMs6s",
+        repo: "", owner:
+            "",
+        admin: [""],
+        id: (location.pathname).substring(0, 49),
+        distractionFreeMode: false
+    });
+    gitalk.render("gitalk-container");
+</script> -->
+<!--评论显示区，请插入合适的位置-->
+<div id="comment"></div>
+<!--Leancloud 操作库:-->
+<script src="https://unpkg.com/leancloud-storage@4.12.0/dist/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el:'#comment',
+        appId: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        appKey: "x5QIsbzH84i1HkDH7IkRMs6s",
+//         masterKey: 'zliw6I1h5Gv3OJfPtEllDP6j'
+        placeholder: 'ヾﾉ≧∀≦)o快来评论一下吧!',
+        avatar:''
+    });
+</script>
+										
+
+											
+														
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<script>
+			"use strict"; !function () { for (var n = document.getElementsByTagName("pre"), e = n.length, s = 0; s < e; s++) { n[s].innerHTML = '<span class="line-number"></span>' + n[s].innerHTML + '<span class="cl"></span>'; for (var a = n[s].innerHTML.split(/\n/).length, r = 0; r < a - 1; r++) { n[s].getElementsByTagName("span")[0].innerHTML += "<span>" + (r + 1) + "</span>" } } }();
+			// 不使用目录的颜色标注
+			// let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a"); 
+			// window.addEventListener("scroll", event => {
+			// 	let fromTop = window.scrollY; mainNavLinks.forEach((link, index) => {
+			// 		let section = document.getElementById(decodeURI(link.hash).substring(1)); 
+			// 		let nextSection = null;
+			// 		if (mainNavLinks[index + 1]) { 
+			// 			nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1)); 
+			// 		}
+			// 		if (section.offsetTop <= fromTop) { 
+			// 			console.log(section);
+			// 			console.log(nextSection?nextSection:0);
+			// 			if (nextSection) { 
+			// 				if (nextSection.offsetTop > fromTop) { 
+			// 					link.classList.add("currentToc"); 
+			// 				} 
+			// 				else {
+			// 					link.classList.remove("currentToc"); 
+			// 				} 
+			// 			} else { 
+			// 				link.classList.add("currentToc"); 
+			// 			} 
+			// 		} else { 
+			// 				link.classList.remove("currentToc"); 
+			// 		}
+			// 	});
+			// });
+			var h = document.documentElement, b = document.body, st = "scrollTop", sh = "scrollHeight", progress = document.querySelector(".progress"), scroll; 
+			document.addEventListener("scroll", function () { scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100; 
+				progress.style.setProperty("--scroll", scroll + "%") });
+			var wxScale = new WxScale({ fullPage: document.querySelector("#fullPage"), canvas: document.querySelector("#canvas") }); var imgBox = document.querySelectorAll("#md_block img"); for (var i = 0; i < imgBox.length; i++) { imgBox[i].onclick = function (e) { wxScale.start(this) } };
+		</script>
+		<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"></a>
+<div class="footer animated fadeInDown">
+    <div class="site_footer">
+        <div class="mysocials">
+            <div class="my_socials">
+                
+                    
+                            
+                    
+                            
+                    
+                            
+                    <a href="https://github.com/Vir-Limerence" title="github"><i
+                                class="iconfont icon-github"></i></a>
+                        
+                            
+                    
+                            
+                    
+                            
+                    
+                            
+            </div>
+        </div>
+    </div>
+</div>
+<!--音乐，只在PC端宽度>1000px时显示-->
+<link rel="stylesheet" href="/media/music/APlayer.min.css">
+<div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3116636104" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<script src="/media/music/APlayer.min.js"></script>
+<script src="/media/music/Meting.min.js"></script>
+<script src="/media/music/instantpage.min.js" type="module" defer></script>
+<!--看板娘-->
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<style>
+    #waifu{
+        right: 20px;
+        left: auto;
+    }
+</style>
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+<script>
+// 等待页面加载完成后再绑定事件
+// window.onload = function() {
+//     // 获取看板娘的 DOM 元素（通常是一个 canvas）
+//     const live2dCanvas = document.getElementById('waifu');
+
+//     // 检查是否成功获取到看板娘的元素
+//     if (live2dCanvas) {
+//         // 添加点击事件监听器
+//         live2dCanvas.addEventListener('click', function() {
+//             // 切换隐藏和显示
+//             if (live2dCanvas.style.display === 'none') {
+//                 live2dCanvas.style.display = 'block'; // 显示
+//             } else {
+//                 live2dCanvas.style.display = 'none';  // 隐藏
+//             }
+//         });
+//     }
+// };
+window.onload = function() {
+    document.getElementById("waifu").addEventListener("click", function() {
+        localStorage.setItem("waifu-display", Date.now());
+
+        document.getElementById("waifu").style.bottom = "-500px";
+        setTimeout(() => {
+            document.getElementById("waifu").style.display = "none";
+            document.getElementById("waifu-toggle").classList.add("waifu-toggle-active");
+        }, 3000);
+    });
+};
+</script>
+
+			<script type="text/javascript" async src="https://Vir-Limerence.github.io/media/js/prism.js"></script>
+</body>
+
+</html>

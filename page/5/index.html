@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="https://Vir-Limerence.github.io/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="renderer" content="webkit">
+<meta name="description" content="HIT2022级网络安全研究生，在这里我将会记录一些日常学习研究">
+<meta charset="UTF-8">
+<title>
+	MAQI&#39; blog
+</title>
+<link href="https://Vir-Limerence.github.io/styles/main.css" type="text/css" rel="stylesheet" />
+<link href="https://at.alicdn.com/t/font_1621793_zatzzgvf30g.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+<script async src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.min.js"></script>
+<script src="https://Vir-Limerence.github.io/media/js/magnify.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script
+	type="text/javascript">function btn_toggle() { document.getElementById("hn").classList.contains("no-js") ? document.getElementById("hn").classList.remove("no-js") : document.getElementById("hn").classList.add("no-js") }
+</script>
+<!--  -->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e2a8873f488fc608a445013cc86317b0";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+	
+
+
+        <link rel="canonical" href="https://Vir-Limerence.github.io" />
+</head>
+
+<body>
+    <div class="progress"></div>
+<style>
+    body::after {
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: .06;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1
+    }
+
+    body::after {
+        background-image: url(https://img.xjh.me/random_img.php?type=bg&ctype=acg&return=302)
+    }
+
+    .progress {
+        background: linear-gradient(to right, #87ceeb var(--scroll), transparent 0);
+        background-repeat: no-repeat;
+        position: fixed;
+        width: 100%;
+        height: 4px;
+        z-index: 1
+    }
+
+    #blogTitle {
+        background: url(https://img.xjh.me/random_img.php?type=bg&ctype=nature&return=302) center center / cover no-repeat #222;
+        overflow: hidden;
+        width: 100%;
+        height: 40vh;
+        max-height: 40vh;
+        box-shadow: 0 1px 2px rgba(150, 150, 150, .7);
+        text-align: center;
+        display: table
+    }
+
+
+    .vertical {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        position: relative;
+        z-index: 2
+    }
+
+    #Header1_HeaderTitle {
+        font-family: 'Playball', cursive;
+        color: #fff;
+        font-size: 3rem;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        margin: 10px 0 10px 0;
+        letter-spacing: -1px;
+        font-weight: 700;
+        animation: fade-in-down 1s both;
+        animation-delay: .5s
+    }
+
+    .vertical h2 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5em;
+        font-weight: 400;
+        letter-spacing: .01rem;
+        color: rgba(255, 255, 255, 0.8);
+        -webkit-animation: fade-in-down .9s;
+        animation: fade-in-down .9s both;
+        -webkit-animation-delay: .1s;
+        animation-delay: .3s;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
+        overflow: hidden;
+        font-family: 'Playball', cursive
+    }
+
+    .poem-wrap {
+        position: relative;
+        width: 1000px;
+        max-width: 80%;
+        border: 2px solid #797979;
+        border-top: 0;
+        text-align: center;
+        margin: 40px auto
+    }
+
+    .poem-left {
+        left: 0
+    }
+
+    .poem-right {
+        right: 0
+    }
+
+    .poem-border {
+        position: absolute;
+        height: 2px;
+        width: 27%;
+        background-color: #797979
+    }
+
+    .poem-wrap p {
+        width: 70%;
+        margin: auto;
+        line-height: 30px;
+        color: #797979
+    }
+
+    .poem-wrap h1 {
+        position: relative;
+        margin-top: -20px;
+        display: inline-block;
+        letter-spacing: 4px;
+        color: #797979;
+        font-size: 2em;
+        margin-bottom: 20px;
+        /* 将标题位于poem-wrap的正中央 */
+    }
+
+    #poem_sentence {
+        font-size: 25px;
+        color: #797979;
+        /* 设置文字居中 */
+        text-align: center;
+    }
+
+    #poem_info {
+        font-size: 15px;
+        margin: 15px auto;
+        color: #797979;
+        text-align: center;
+    }
+
+    #navList {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        /* 设置字体大小 */
+        font-size: 20px;
+    }
+
+    #navList li {
+        font-family: 'Josefin Sans Light', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "'Hiragino Sans GB", STHeiti, "Microsoft Yahei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+        color: #95a5a6;
+        display: inline-block;
+        padding: 1rem;
+        font-size: 1rem;
+        text-align: center
+    }
+
+    #navList li a {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3)
+    }
+
+    #navList li a:hover {
+        color: #f60;
+        font-weight: 500
+    }
+
+    #navigator {
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+        background: hsla(0, 0%, 100%, .6);
+        z-index: 1;
+    }
+    #starfield {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+</style>
+<div class="darkmode-background"></div>
+<div class="darkmode-layer"></div>
+<noscript>
+    <p class="warn">本页面需要浏览器支持（启用）JavaScript</p>
+</noscript>
+<!-- 添加星星 -->
+<canvas id="starfield"></canvas>
+<script>
+    // 获取画布及上下文
+    var canvas = document.getElementById('starfield');
+    var ctx = canvas.getContext('2d');
+
+    // 设置画布大小
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 创建一个存储星星的数组
+    var stars = [];
+
+    // 创建初始的星星
+    for (var i = 0; i < 200; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            speed: 1 + Math.random() * 5
+        });
+    }
+
+    // 定义一个函数来清除画布
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 定义一个函数来更新星星的位置
+    function update() {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].y += stars[i].speed;
+            if (stars[i].y > canvas.height) {
+                stars[i].y = 0;
+                stars[i].x = Math.random() * canvas.width;
+            }
+        }
+    }
+
+    // 定义一个函数来绘制星星
+    function draw() {
+        for (var i = 0; i < stars.length; i++) {
+            ctx.beginPath();
+            ctx.arc(stars[i].x, stars[i].y, 1, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        }
+    }
+
+    // 定义一个函数来执行动画
+    function animate() {
+        clear();
+        update();
+        draw();
+        requestAnimationFrame(animate);
+    }
+
+    // 启动动画
+    animate();
+</script>
+<!-- 添加星星 -->
+<div class="header">
+    <!-- 添加头部标题 -->
+    <div id="blogTitle" style="margin-bottom: 0px;">
+        <div class="vertical">
+            <h1>
+                <a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="/">
+                    MAQI&#39; blog
+                </a>
+            </h1>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <div id="navigator" style="position: static; top: 0px;">
+        <div class="nav">
+            <ul id="navList">
+                
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/">
+                            首页
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/archives">
+                            归档
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/columns">
+                            专栏
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/tags">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/post/about">
+                            关于
+                        </a>
+                    </li>
+                    
+                        <li>
+                            <form id="gridea-search-form" data-update="1578893743252" action="/search/index.html"><input
+                                    class="search-input" autocomplete="off" spellcheck="false" name="q"
+                                    placeholder="搜索"></form>
+                        </li>
+                        <li>
+                            <input id="switch_default" onclick="mobileBtn()" type="checkbox"
+                                class="switch_default"><label for="switch_default"></label>
+                        </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <!-- 添加古诗词 -->
+    <div class="poem-wrap">
+        <div class="poem-border poem-left"></div>
+        <div class="poem-border poem-right"></div>
+        <h1>念两句诗</h1>
+        <div id="poem_sentence"></div>
+        <div id="poem_info"></div>
+    </div>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        jinrishici.load(function (result) {
+            var sentence = document.querySelector("#poem_sentence")
+            var info = document.querySelector("#poem_info")
+            sentence.innerHTML = result.data.content
+            info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+        });
+    </script>
+    <!-- 添加古诗词 -->
+</div>
+<!--调节亮度-->
+<script>
+    function enableDarkmode() {
+        document.body.classList.add("darkmode");
+        document.getElementById("switch_default").checked = true;
+        document.getElementById("switch_default_h").checked = true;
+    }
+
+    function removeDarkmode() {
+        document.body.classList.remove("darkmode");
+        document.getElementById("switch_default").checked = false;
+        document.getElementById("switch_default_h").checked = false;
+    }
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+
+    // 删除或注释掉以下行，以防止页面加载时自动启用暗色模式
+    // var cookie = getCookie("darkmode");
+    // if ("enable" === cookie) enableDarkmode();
+
+    // 如果您希望根据系统的首选项颜色方案自动切换，可以保留以下代码
+    // 但是请确保"disable"不在cookie中
+    // if (window.matchMedia("(prefers-color-scheme: dark)").matches && "disable" !== cookie) {
+    //     enableDarkmode();
+    //     document.cookie = "darkmode=enable; path=/";
+    // }
+
+    var mobileBtn = function() {
+        if (document.getElementById("switch_default").checked) {
+            enableDarkmode();
+            document.cookie = "darkmode=enable; path=/";
+        } else {
+            removeDarkmode();
+            document.cookie = "darkmode=disable; path=/";
+        }
+    };
+</script>
+    <div class="main">
+    <div class="main-inner">
+        <div class="content">
+            <div class="post_list">
+                <div class="round-shape-one"></div>
+                 
+                 
+                     <div class="post">
+                             <img class="rounded-image" src="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn//large/005FzdTdgy1geeswu9rjaj31hc0u0e0w.jpg">
+                         
+                             <div class="post_title weaklink" style="display: flex;justify-content: space-between;">
+                                 <h2>
+                                     <a href="https://Vir-Limerence.github.io/post/4-java-dui-xiang-he-lei/">
+                                         4. Java对象和类
+                                     </a>
+                                 </h2>
+                             </div>
+                             <div class="post_content markdown">
+                                 <div class="p_part" style="color:#000;font-size: 16px;font-family: 宋体;">
+                                     <p>
+                                         Java对象和类
+java作为一种面向对象的语言，支持以下的基本概念：
+多态、继承、封装、抽象、类、对象、实例、方法、重载
+
+对象：对象是类的一个实例（对象不是找个女朋友）😏，有状态和行为。例如，一条狗是一个对象，它的状态有：颜色、名字、...
+                                     </p>
+                                 </div>
+                             </div>
+                             <div class="post_footer">
+                                 <section class="info weaklink"><i class="iconfont icon-calendar"></i><span
+                                         style="margin-right:15px">
+                                         2023-05-28
+                                     </span><i class="iconfont icon-category"></i><span class="weaklink"
+                                         style="margin-right:13px">
+                                         
+                                             <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+                                                 JAVA速记
+                                             </a>
+                                             
+                                                     
+                                     </span><i class="iconfont icon-caret-down"></i><span class="weaklink"
+                                         style="margin-right:20px;">
+                                         971字
+                                     </span><i class="iconfont icon-naozhong"></i><span class="weaklink"
+                                         style="margin-right:15px;">
+                                         4 min read
+                                     </span></section>
+                             </div>
+                     </div>
+                     <style>
+                         .post{
+                             position: relative; /* 让容器相对定位 */
+                         }
+                         .post img{
+                             position: absolute; /* 让图片绝对定位 */
+                             top: 0;
+                             right: 0;
+                             z-index: 0; /* 将图片的层级设为 -1，使其后置于文本之后 */
+                             opacity: 1.0; /* 设置图片透明度为 0.3 */
+                             width: 30%; /* 让图片宽度填满容器 */
+                             height: 100%; /* 让图片高度填满容器 */
+                             pointer-events: none;
+                         }
+                         .post_content .p_part {
+                            width: calc(60% - 20px); /* 减去一些边距或内边距，以适应实际的60%宽度 */
+                            /*margin: 0 auto; !* 居中显示 *!*/
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                         .post{
+                              border: 1px solid lightgray; /* 浅色边框 */
+                              padding-left: 5%;
+                              border-radius: 10px; /* 圆角半径 */
+                              background-color: #fff; /* 背景颜色 */
+                         }
+                         .rounded-image {
+                          border-radius: 0 10px 10px 0;; /* 图片圆角半径 */
+                          overflow: hidden; /* 隐藏超出圆角部分的图片 */
+                        }
+                     </style>
+                 
+                 
+                     <div class="post">
+                             <img class="rounded-image" src="https://img.xjh.me/img/57888840_p0.jpg">
+                         
+                             <div class="post_title weaklink" style="display: flex;justify-content: space-between;">
+                                 <h2>
+                                     <a href="https://Vir-Limerence.github.io/post/3-java-ji-chu-yu-fa/">
+                                         3. Java基础语法
+                                     </a>
+                                 </h2>
+                             </div>
+                             <div class="post_content markdown">
+                                 <div class="p_part" style="color:#000;font-size: 16px;font-family: 宋体;">
+                                     <p>
+                                         示例
+一个Java程序可以认为是一系列对象的集合，这些对象通过调用彼此的方法来协同工作，下面介绍下类、对象、方法和示例变量的概念。
+
+对象：对象是类的实例，有状态和行为。
+类：类是模板，描述与一类对象的行为和状态。
+方法：方法是行为，一个类...
+                                     </p>
+                                 </div>
+                             </div>
+                             <div class="post_footer">
+                                 <section class="info weaklink"><i class="iconfont icon-calendar"></i><span
+                                         style="margin-right:15px">
+                                         2023-05-28
+                                     </span><i class="iconfont icon-category"></i><span class="weaklink"
+                                         style="margin-right:13px">
+                                         
+                                             <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+                                                 JAVA速记
+                                             </a>
+                                             
+                                                     
+                                     </span><i class="iconfont icon-caret-down"></i><span class="weaklink"
+                                         style="margin-right:20px;">
+                                         1450字
+                                     </span><i class="iconfont icon-naozhong"></i><span class="weaklink"
+                                         style="margin-right:15px;">
+                                         6 min read
+                                     </span></section>
+                             </div>
+                     </div>
+                     <style>
+                         .post{
+                             position: relative; /* 让容器相对定位 */
+                         }
+                         .post img{
+                             position: absolute; /* 让图片绝对定位 */
+                             top: 0;
+                             right: 0;
+                             z-index: 0; /* 将图片的层级设为 -1，使其后置于文本之后 */
+                             opacity: 1.0; /* 设置图片透明度为 0.3 */
+                             width: 30%; /* 让图片宽度填满容器 */
+                             height: 100%; /* 让图片高度填满容器 */
+                             pointer-events: none;
+                         }
+                         .post_content .p_part {
+                            width: calc(60% - 20px); /* 减去一些边距或内边距，以适应实际的60%宽度 */
+                            /*margin: 0 auto; !* 居中显示 *!*/
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                         .post{
+                              border: 1px solid lightgray; /* 浅色边框 */
+                              padding-left: 5%;
+                              border-radius: 10px; /* 圆角半径 */
+                              background-color: #fff; /* 背景颜色 */
+                         }
+                         .rounded-image {
+                          border-radius: 0 10px 10px 0;; /* 图片圆角半径 */
+                          overflow: hidden; /* 隐藏超出圆角部分的图片 */
+                        }
+                     </style>
+                 
+                 
+                     <div class="post">
+                             <img class="rounded-image" src="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn//large/0072Vf1pgy1foxlohgkwfj31hc0u0k69.jpg">
+                         
+                             <div class="post_title weaklink" style="display: flex;justify-content: space-between;">
+                                 <h2>
+                                     <a href="https://Vir-Limerence.github.io/post/2-java-jian-jie/">
+                                         2. Java简介
+                                     </a>
+                                 </h2>
+                             </div>
+                             <div class="post_content markdown">
+                                 <div class="p_part" style="color:#000;font-size: 16px;font-family: 宋体;">
+                                     <p>
+                                         简介
+Java语言是Sun公司于1990年开发的；1994年，Gosling用Java语言开发了一个实用性较高、可靠、安全、有交互功能的新型Web浏览器，它不依赖与任何硬件平台和软件平台，该浏览器被命名为HotJava，并于1995年在业界...
+                                     </p>
+                                 </div>
+                             </div>
+                             <div class="post_footer">
+                                 <section class="info weaklink"><i class="iconfont icon-calendar"></i><span
+                                         style="margin-right:15px">
+                                         2023-05-28
+                                     </span><i class="iconfont icon-category"></i><span class="weaklink"
+                                         style="margin-right:13px">
+                                         
+                                             <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+                                                 JAVA速记
+                                             </a>
+                                             
+                                                     
+                                     </span><i class="iconfont icon-caret-down"></i><span class="weaklink"
+                                         style="margin-right:20px;">
+                                         1999字
+                                     </span><i class="iconfont icon-naozhong"></i><span class="weaklink"
+                                         style="margin-right:15px;">
+                                         8 min read
+                                     </span></section>
+                             </div>
+                     </div>
+                     <style>
+                         .post{
+                             position: relative; /* 让容器相对定位 */
+                         }
+                         .post img{
+                             position: absolute; /* 让图片绝对定位 */
+                             top: 0;
+                             right: 0;
+                             z-index: 0; /* 将图片的层级设为 -1，使其后置于文本之后 */
+                             opacity: 1.0; /* 设置图片透明度为 0.3 */
+                             width: 30%; /* 让图片宽度填满容器 */
+                             height: 100%; /* 让图片高度填满容器 */
+                             pointer-events: none;
+                         }
+                         .post_content .p_part {
+                            width: calc(60% - 20px); /* 减去一些边距或内边距，以适应实际的60%宽度 */
+                            /*margin: 0 auto; !* 居中显示 *!*/
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                         .post{
+                              border: 1px solid lightgray; /* 浅色边框 */
+                              padding-left: 5%;
+                              border-radius: 10px; /* 圆角半径 */
+                              background-color: #fff; /* 背景颜色 */
+                         }
+                         .rounded-image {
+                          border-radius: 0 10px 10px 0;; /* 图片圆角半径 */
+                          overflow: hidden; /* 隐藏超出圆角部分的图片 */
+                        }
+                     </style>
+                 
+                 
+                     <div class="post">
+                             <img class="rounded-image" src="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn//large/a15b4afegy1fmvj8iph19j21hc0u0k60.jpg">
+                         
+                             <div class="post_title weaklink" style="display: flex;justify-content: space-between;">
+                                 <h2>
+                                     <a href="https://Vir-Limerence.github.io/post/1java-kai-shi/">
+                                         1. Java开始
+                                     </a>
+                                 </h2>
+                             </div>
+                             <div class="post_content markdown">
+                                 <div class="p_part" style="color:#000;font-size: 16px;font-family: 宋体;">
+                                     <p>
+                                         运行java
+创建文件HelloWorld.java（文件名称与类名一致）
+public class HelloWorld {
+    public static void main(String[] args) {
+        Sys...
+                                     </p>
+                                 </div>
+                             </div>
+                             <div class="post_footer">
+                                 <section class="info weaklink"><i class="iconfont icon-calendar"></i><span
+                                         style="margin-right:15px">
+                                         2023-05-28
+                                     </span><i class="iconfont icon-category"></i><span class="weaklink"
+                                         style="margin-right:13px">
+                                         
+                                             <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+                                                 JAVA速记
+                                             </a>
+                                             
+                                                     
+                                     </span><i class="iconfont icon-caret-down"></i><span class="weaklink"
+                                         style="margin-right:20px;">
+                                         139字
+                                     </span><i class="iconfont icon-naozhong"></i><span class="weaklink"
+                                         style="margin-right:15px;">
+                                         1 min read
+                                     </span></section>
+                             </div>
+                     </div>
+                     <style>
+                         .post{
+                             position: relative; /* 让容器相对定位 */
+                         }
+                         .post img{
+                             position: absolute; /* 让图片绝对定位 */
+                             top: 0;
+                             right: 0;
+                             z-index: 0; /* 将图片的层级设为 -1，使其后置于文本之后 */
+                             opacity: 1.0; /* 设置图片透明度为 0.3 */
+                             width: 30%; /* 让图片宽度填满容器 */
+                             height: 100%; /* 让图片高度填满容器 */
+                             pointer-events: none;
+                         }
+                         .post_content .p_part {
+                            width: calc(60% - 20px); /* 减去一些边距或内边距，以适应实际的60%宽度 */
+                            /*margin: 0 auto; !* 居中显示 *!*/
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                         .post{
+                              border: 1px solid lightgray; /* 浅色边框 */
+                              padding-left: 5%;
+                              border-radius: 10px; /* 圆角半径 */
+                              background-color: #fff; /* 背景颜色 */
+                         }
+                         .rounded-image {
+                          border-radius: 0 10px 10px 0;; /* 图片圆角半径 */
+                          overflow: hidden; /* 隐藏超出圆角部分的图片 */
+                        }
+                     </style>
+                 
+                 
+                     <div class="post">
+                             <img class="rounded-image" src="https://img.xjh.me/img/60317330_p0.jpg">
+                         
+                             <div class="post_title weaklink" style="display: flex;justify-content: space-between;">
+                                 <h2>
+                                     <a href="https://Vir-Limerence.github.io/post/dui-python-jiao-ben-jin-xing-xing-neng-fen-xi/">
+                                         对python脚本进行性能分析
+                                     </a>
+                                 </h2>
+                             </div>
+                             <div class="post_content markdown">
+                                 <div class="p_part" style="color:#000;font-size: 16px;font-family: 宋体;">
+                                     <p>
+                                         python -m cProfile -o profile.pstats profiler.py
+
+这是一个使用Python内置的cProfile模块对profiler.py脚本进行性能分析的命令。该命令会生成一个名为profile.pst...
+                                     </p>
+                                 </div>
+                             </div>
+                             <div class="post_footer">
+                                 <section class="info weaklink"><i class="iconfont icon-calendar"></i><span
+                                         style="margin-right:15px">
+                                         2023-05-27
+                                     </span><i class="iconfont icon-category"></i><span class="weaklink"
+                                         style="margin-right:13px">
+                                         
+                                             <a href="https://Vir-Limerence.github.io/tag/j-L5ccFDG/" class="tag">
+                                                 Python
+                                             </a>
+                                             
+                                                     
+                                     </span><i class="iconfont icon-caret-down"></i><span class="weaklink"
+                                         style="margin-right:20px;">
+                                         233字
+                                     </span><i class="iconfont icon-naozhong"></i><span class="weaklink"
+                                         style="margin-right:15px;">
+                                         1 min read
+                                     </span></section>
+                             </div>
+                     </div>
+                     <style>
+                         .post{
+                             position: relative; /* 让容器相对定位 */
+                         }
+                         .post img{
+                             position: absolute; /* 让图片绝对定位 */
+                             top: 0;
+                             right: 0;
+                             z-index: 0; /* 将图片的层级设为 -1，使其后置于文本之后 */
+                             opacity: 1.0; /* 设置图片透明度为 0.3 */
+                             width: 30%; /* 让图片宽度填满容器 */
+                             height: 100%; /* 让图片高度填满容器 */
+                             pointer-events: none;
+                         }
+                         .post_content .p_part {
+                            width: calc(60% - 20px); /* 减去一些边距或内边距，以适应实际的60%宽度 */
+                            /*margin: 0 auto; !* 居中显示 *!*/
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                         .post{
+                              border: 1px solid lightgray; /* 浅色边框 */
+                              padding-left: 5%;
+                              border-radius: 10px; /* 圆角半径 */
+                              background-color: #fff; /* 背景颜色 */
+                         }
+                         .rounded-image {
+                          border-radius: 0 10px 10px 0;; /* 图片圆角半径 */
+                          overflow: hidden; /* 隐藏超出圆角部分的图片 */
+                        }
+                     </style>
+                 
+                 
+                     <div class="post">
+                             <img class="rounded-image" src="https://img.xjh.me/img/23665621_p0_master1200.jpg">
+                         
+                             <div class="post_title weaklink" style="display: flex;justify-content: space-between;">
+                                 <h2>
+                                     <a href="https://Vir-Limerence.github.io/post/tu-pian-jie-kou-zheng-li/">
+                                         图片接口整理
+                                     </a>
+                                 </h2>
+                             </div>
+                             <div class="post_content markdown">
+                                 <div class="p_part" style="color:#000;font-size: 16px;font-family: 宋体;">
+                                     <p>
+                                         声明：本文是二次整理，来源是庭户皓己盈
+樱花
+网址：https://www.dmoe.cc/
+API：https://www.dmoe.cc/random.php
+可选参数：type=json
+JSON调用格式：https://www.dm...
+                                     </p>
+                                 </div>
+                             </div>
+                             <div class="post_footer">
+                                 <section class="info weaklink"><i class="iconfont icon-calendar"></i><span
+                                         style="margin-right:15px">
+                                         2023-05-23
+                                     </span><i class="iconfont icon-category"></i><span class="weaklink"
+                                         style="margin-right:13px">
+                                         
+                                             <a href="https://Vir-Limerence.github.io/tag/i6SyYe6cd/" class="tag">
+                                                 页面美化
+                                             </a>
+                                             
+                                                     
+                                     </span><i class="iconfont icon-caret-down"></i><span class="weaklink"
+                                         style="margin-right:20px;">
+                                         346字
+                                     </span><i class="iconfont icon-naozhong"></i><span class="weaklink"
+                                         style="margin-right:15px;">
+                                         2 min read
+                                     </span></section>
+                             </div>
+                     </div>
+                     <style>
+                         .post{
+                             position: relative; /* 让容器相对定位 */
+                         }
+                         .post img{
+                             position: absolute; /* 让图片绝对定位 */
+                             top: 0;
+                             right: 0;
+                             z-index: 0; /* 将图片的层级设为 -1，使其后置于文本之后 */
+                             opacity: 1.0; /* 设置图片透明度为 0.3 */
+                             width: 30%; /* 让图片宽度填满容器 */
+                             height: 100%; /* 让图片高度填满容器 */
+                             pointer-events: none;
+                         }
+                         .post_content .p_part {
+                            width: calc(60% - 20px); /* 减去一些边距或内边距，以适应实际的60%宽度 */
+                            /*margin: 0 auto; !* 居中显示 *!*/
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                         .post{
+                              border: 1px solid lightgray; /* 浅色边框 */
+                              padding-left: 5%;
+                              border-radius: 10px; /* 圆角半径 */
+                              background-color: #fff; /* 背景颜色 */
+                         }
+                         .rounded-image {
+                          border-radius: 0 10px 10px 0;; /* 图片圆角半径 */
+                          overflow: hidden; /* 隐藏超出圆角部分的图片 */
+                        }
+                     </style>
+                 
+                 
+                     <div class="post">
+                             <img class="rounded-image" src="https://img.btstu.cn/api/images/5a0a500eeb71e.jpg">
+                         
+                             <div class="post_title weaklink" style="display: flex;justify-content: space-between;">
+                                 <h2>
+                                     <a href="https://Vir-Limerence.github.io/post/shou-ye/">
+                                          为页面添加音乐组件
+                                     </a>
+                                 </h2>
+                             </div>
+                             <div class="post_content markdown">
+                                 <div class="p_part" style="color:#000;font-size: 16px;font-family: 宋体;">
+                                     <p>
+                                         😀音乐组件
+&lt;!--音乐，只在PC端宽度&gt;1000px时显示--&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://blog-static.cnblogs.c...
+                                     </p>
+                                 </div>
+                             </div>
+                             <div class="post_footer">
+                                 <section class="info weaklink"><i class="iconfont icon-calendar"></i><span
+                                         style="margin-right:15px">
+                                         2023-05-22
+                                     </span><i class="iconfont icon-category"></i><span class="weaklink"
+                                         style="margin-right:13px">
+                                         
+                                             <a href="https://Vir-Limerence.github.io/tag/i6SyYe6cd/" class="tag">
+                                                 页面美化
+                                             </a>
+                                             
+                                                     
+                                     </span><i class="iconfont icon-caret-down"></i><span class="weaklink"
+                                         style="margin-right:20px;">
+                                         327字
+                                     </span><i class="iconfont icon-naozhong"></i><span class="weaklink"
+                                         style="margin-right:15px;">
+                                         2 min read
+                                     </span></section>
+                             </div>
+                     </div>
+                     <style>
+                         .post{
+                             position: relative; /* 让容器相对定位 */
+                         }
+                         .post img{
+                             position: absolute; /* 让图片绝对定位 */
+                             top: 0;
+                             right: 0;
+                             z-index: 0; /* 将图片的层级设为 -1，使其后置于文本之后 */
+                             opacity: 1.0; /* 设置图片透明度为 0.3 */
+                             width: 30%; /* 让图片宽度填满容器 */
+                             height: 100%; /* 让图片高度填满容器 */
+                             pointer-events: none;
+                         }
+                         .post_content .p_part {
+                            width: calc(60% - 20px); /* 减去一些边距或内边距，以适应实际的60%宽度 */
+                            /*margin: 0 auto; !* 居中显示 *!*/
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                         .post{
+                              border: 1px solid lightgray; /* 浅色边框 */
+                              padding-left: 5%;
+                              border-radius: 10px; /* 圆角半径 */
+                              background-color: #fff; /* 背景颜色 */
+                         }
+                         .rounded-image {
+                          border-radius: 0 10px 10px 0;; /* 图片圆角半径 */
+                          overflow: hidden; /* 隐藏超出圆角部分的图片 */
+                        }
+                     </style>
+                 
+
+                <div class="round-shape-one"></div>
+                <div class="paginator pager pagination">
+                    <div class="paginator_container pagination_container">
+                        <a href="https://Vir-Limerence.github.io/page/4/"
+                            class="btn pre newer-posts newer_posts">上一页</a>
+                        
+                        
+                        <div style="clear:both;height:0;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"></a>
+<div class="footer animated fadeInDown">
+    <div class="site_footer">
+        <div class="mysocials">
+            <div class="my_socials">
+                
+                    
+                            
+                    
+                            
+                    
+                            
+                    <a href="https://github.com/Vir-Limerence" title="github"><i
+                                class="iconfont icon-github"></i></a>
+                        
+                            
+                    
+                            
+                    
+                            
+                    
+                            
+            </div>
+        </div>
+    </div>
+</div>
+<!--音乐，只在PC端宽度>1000px时显示-->
+<link rel="stylesheet" href="/media/music/APlayer.min.css">
+<div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3116636104" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<script src="/media/music/APlayer.min.js"></script>
+<script src="/media/music/Meting.min.js"></script>
+<script src="/media/music/instantpage.min.js" type="module" defer></script>
+<!--看板娘-->
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<style>
+    #waifu{
+        right: 20px;
+        left: auto;
+    }
+</style>
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+<script>
+// 等待页面加载完成后再绑定事件
+// window.onload = function() {
+//     // 获取看板娘的 DOM 元素（通常是一个 canvas）
+//     const live2dCanvas = document.getElementById('waifu');
+
+//     // 检查是否成功获取到看板娘的元素
+//     if (live2dCanvas) {
+//         // 添加点击事件监听器
+//         live2dCanvas.addEventListener('click', function() {
+//             // 切换隐藏和显示
+//             if (live2dCanvas.style.display === 'none') {
+//                 live2dCanvas.style.display = 'block'; // 显示
+//             } else {
+//                 live2dCanvas.style.display = 'none';  // 隐藏
+//             }
+//         });
+//     }
+// };
+window.onload = function() {
+    document.getElementById("waifu").addEventListener("click", function() {
+        localStorage.setItem("waifu-display", Date.now());
+
+        document.getElementById("waifu").style.bottom = "-500px";
+        setTimeout(() => {
+            document.getElementById("waifu").style.display = "none";
+            document.getElementById("waifu-toggle").classList.add("waifu-toggle-active");
+        }, 3000);
+    });
+};
+</script>
+
+</body>
+
+</html>

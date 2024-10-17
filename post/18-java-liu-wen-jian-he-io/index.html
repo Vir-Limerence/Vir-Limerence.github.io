@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="shortcut icon" href="https://Vir-Limerence.github.io/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="renderer" content="webkit">
+<meta name="description" content="HIT2022级网络安全研究生，在这里我将会记录一些日常学习研究">
+<meta charset="UTF-8">
+<title>
+	18. Java流、文件和IO | MAQI&#39; blog
+</title>
+<link href="https://Vir-Limerence.github.io/styles/main.css" type="text/css" rel="stylesheet" />
+<link href="https://at.alicdn.com/t/font_1621793_zatzzgvf30g.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+<script async src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.min.js"></script>
+<script src="https://Vir-Limerence.github.io/media/js/magnify.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script
+	type="text/javascript">function btn_toggle() { document.getElementById("hn").classList.contains("no-js") ? document.getElementById("hn").classList.remove("no-js") : document.getElementById("hn").classList.add("no-js") }
+</script>
+<!--  -->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e2a8873f488fc608a445013cc86317b0";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+	
+
+
+		<link rel="canonical" href="https://Vir-Limerence.github.io/post/18-java-liu-wen-jian-he-io/" />
+</head>
+
+<body>
+	<div class="progress"></div>
+<style>
+    body::after {
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: .06;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1
+    }
+
+    body::after {
+        background-image: url(https://img.xjh.me/random_img.php?type=bg&ctype=acg&return=302)
+    }
+
+    .progress {
+        background: linear-gradient(to right, #87ceeb var(--scroll), transparent 0);
+        background-repeat: no-repeat;
+        position: fixed;
+        width: 100%;
+        height: 4px;
+        z-index: 1
+    }
+
+    #blogTitle {
+        background: url(https://img.xjh.me/random_img.php?type=bg&ctype=nature&return=302) center center / cover no-repeat #222;
+        overflow: hidden;
+        width: 100%;
+        height: 40vh;
+        max-height: 40vh;
+        box-shadow: 0 1px 2px rgba(150, 150, 150, .7);
+        text-align: center;
+        display: table
+    }
+
+
+    .vertical {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        position: relative;
+        z-index: 2
+    }
+
+    #Header1_HeaderTitle {
+        font-family: 'Playball', cursive;
+        color: #fff;
+        font-size: 3rem;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        margin: 10px 0 10px 0;
+        letter-spacing: -1px;
+        font-weight: 700;
+        animation: fade-in-down 1s both;
+        animation-delay: .5s
+    }
+
+    .vertical h2 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5em;
+        font-weight: 400;
+        letter-spacing: .01rem;
+        color: rgba(255, 255, 255, 0.8);
+        -webkit-animation: fade-in-down .9s;
+        animation: fade-in-down .9s both;
+        -webkit-animation-delay: .1s;
+        animation-delay: .3s;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
+        overflow: hidden;
+        font-family: 'Playball', cursive
+    }
+
+    .poem-wrap {
+        position: relative;
+        width: 1000px;
+        max-width: 80%;
+        border: 2px solid #797979;
+        border-top: 0;
+        text-align: center;
+        margin: 40px auto
+    }
+
+    .poem-left {
+        left: 0
+    }
+
+    .poem-right {
+        right: 0
+    }
+
+    .poem-border {
+        position: absolute;
+        height: 2px;
+        width: 27%;
+        background-color: #797979
+    }
+
+    .poem-wrap p {
+        width: 70%;
+        margin: auto;
+        line-height: 30px;
+        color: #797979
+    }
+
+    .poem-wrap h1 {
+        position: relative;
+        margin-top: -20px;
+        display: inline-block;
+        letter-spacing: 4px;
+        color: #797979;
+        font-size: 2em;
+        margin-bottom: 20px;
+        /* 将标题位于poem-wrap的正中央 */
+    }
+
+    #poem_sentence {
+        font-size: 25px;
+        color: #797979;
+        /* 设置文字居中 */
+        text-align: center;
+    }
+
+    #poem_info {
+        font-size: 15px;
+        margin: 15px auto;
+        color: #797979;
+        text-align: center;
+    }
+
+    #navList {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        /* 设置字体大小 */
+        font-size: 20px;
+    }
+
+    #navList li {
+        font-family: 'Josefin Sans Light', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "'Hiragino Sans GB", STHeiti, "Microsoft Yahei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+        color: #95a5a6;
+        display: inline-block;
+        padding: 1rem;
+        font-size: 1rem;
+        text-align: center
+    }
+
+    #navList li a {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3)
+    }
+
+    #navList li a:hover {
+        color: #f60;
+        font-weight: 500
+    }
+
+    #navigator {
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+        background: hsla(0, 0%, 100%, .6);
+        z-index: 1;
+    }
+    #starfield {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+</style>
+<div class="darkmode-background"></div>
+<div class="darkmode-layer"></div>
+<noscript>
+    <p class="warn">本页面需要浏览器支持（启用）JavaScript</p>
+</noscript>
+<!-- 添加星星 -->
+<canvas id="starfield"></canvas>
+<script>
+    // 获取画布及上下文
+    var canvas = document.getElementById('starfield');
+    var ctx = canvas.getContext('2d');
+
+    // 设置画布大小
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 创建一个存储星星的数组
+    var stars = [];
+
+    // 创建初始的星星
+    for (var i = 0; i < 200; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            speed: 1 + Math.random() * 5
+        });
+    }
+
+    // 定义一个函数来清除画布
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 定义一个函数来更新星星的位置
+    function update() {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].y += stars[i].speed;
+            if (stars[i].y > canvas.height) {
+                stars[i].y = 0;
+                stars[i].x = Math.random() * canvas.width;
+            }
+        }
+    }
+
+    // 定义一个函数来绘制星星
+    function draw() {
+        for (var i = 0; i < stars.length; i++) {
+            ctx.beginPath();
+            ctx.arc(stars[i].x, stars[i].y, 1, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        }
+    }
+
+    // 定义一个函数来执行动画
+    function animate() {
+        clear();
+        update();
+        draw();
+        requestAnimationFrame(animate);
+    }
+
+    // 启动动画
+    animate();
+</script>
+<!-- 添加星星 -->
+<div class="header">
+    <!-- 添加头部标题 -->
+    <div id="blogTitle" style="margin-bottom: 0px;">
+        <div class="vertical">
+            <h1>
+                <a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="/">
+                    MAQI&#39; blog
+                </a>
+            </h1>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <div id="navigator" style="position: static; top: 0px;">
+        <div class="nav">
+            <ul id="navList">
+                
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/">
+                            首页
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/archives">
+                            归档
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/columns">
+                            专栏
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/tags">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a id="d2ef19af68cc211e98f8a0242ac110003" href="/post/about">
+                            关于
+                        </a>
+                    </li>
+                    
+                        <li>
+                            <form id="gridea-search-form" data-update="1578893743252" action="/search/index.html"><input
+                                    class="search-input" autocomplete="off" spellcheck="false" name="q"
+                                    placeholder="搜索"></form>
+                        </li>
+                        <li>
+                            <input id="switch_default" onclick="mobileBtn()" type="checkbox"
+                                class="switch_default"><label for="switch_default"></label>
+                        </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 添加导航栏 -->
+    <!-- 添加古诗词 -->
+    <div class="poem-wrap">
+        <div class="poem-border poem-left"></div>
+        <div class="poem-border poem-right"></div>
+        <h1>念两句诗</h1>
+        <div id="poem_sentence"></div>
+        <div id="poem_info"></div>
+    </div>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        jinrishici.load(function (result) {
+            var sentence = document.querySelector("#poem_sentence")
+            var info = document.querySelector("#poem_info")
+            sentence.innerHTML = result.data.content
+            info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+        });
+    </script>
+    <!-- 添加古诗词 -->
+</div>
+<!--调节亮度-->
+<script>
+    function enableDarkmode() {
+        document.body.classList.add("darkmode");
+        document.getElementById("switch_default").checked = true;
+        document.getElementById("switch_default_h").checked = true;
+    }
+
+    function removeDarkmode() {
+        document.body.classList.remove("darkmode");
+        document.getElementById("switch_default").checked = false;
+        document.getElementById("switch_default_h").checked = false;
+    }
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+
+    // 删除或注释掉以下行，以防止页面加载时自动启用暗色模式
+    // var cookie = getCookie("darkmode");
+    // if ("enable" === cookie) enableDarkmode();
+
+    // 如果您希望根据系统的首选项颜色方案自动切换，可以保留以下代码
+    // 但是请确保"disable"不在cookie中
+    // if (window.matchMedia("(prefers-color-scheme: dark)").matches && "disable" !== cookie) {
+    //     enableDarkmode();
+    //     document.cookie = "darkmode=enable; path=/";
+    // }
+
+    var mobileBtn = function() {
+        if (document.getElementById("switch_default").checked) {
+            enableDarkmode();
+            document.cookie = "darkmode=enable; path=/";
+        } else {
+            removeDarkmode();
+            document.cookie = "darkmode=disable; path=/";
+        }
+    };
+</script>
+		<div class="main">
+			<div class="main-inner">
+				<div class="content">
+					<article class="post">
+						<h2 class="post_title sm_margin"><a>
+								18. Java流、文件和IO
+							</a></h2>
+						<script>function lan() { if (document.getElementById("lan").innerText == "繁") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_tw.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "简" } else { if (document.getElementById("lan").innerText == "簡") { var s = document.getElementById("tongwenlet_cn"); if (s != null) { document.body.removeChild(s) } var s = document.createElement("script"); s.language = "javascript"; s.type = "text/javascript"; s.src = "https://cdn.jsdelivr.net/gh/qyxtim/Static@1.1/bookmarklet_cn.js"; s.id = "tongwenlet_cn"; document.body.appendChild(s); document.getElementById("lan").innerHTML = "繁" } } };</script>
+						<section class="post_details"><i class="iconfont icon-calendar"></i><span
+								style="margin-right:15px">
+								2023-06-03
+							</span><i class="iconfont icon-browse"></i><span style="margin-right:15px"> <span
+									id="busuanzi_value_page_pv"></span>浏览</span>
+									<i class="iconfont icon-category"></i>
+								<!-- <span class="weaklink" style="margin-right:15px"> -->
+								 <a href="https://Vir-Limerence.github.io/tag/zBJtyRrqa/" class="tag">
+										JAVA速记
+									</a>
+									
+								
+							</span><i class="iconfont icon-caret-down"></i><span style="margin-right:15px">
+								2014字
+							</span><i class="iconfont icon-naozhong"></i><span style="margin-right:15px">
+								9 min read
+							</span><a id="lan" href="javascript:void(0);" onclick="lan();" title="调整简繁体"
+								style="margin-right:15px;">繁</a>
+							
+						</section>
+						
+							<!-- <img class="featureImg" alt="featureimg" src="https://img.xjh.me/img/63603275_p0.jpg"
+								referrerpolicy="no-referrer">
+							 -->
+								<div style="display:flex">
+									<div class="markdown-body" id="md_block">
+										<div class="round-shape-one"></div>
+										<p>Java.io 包几乎包含了所有操作输入、输出需要的类。所有这些流类代表了输入源和输出目标。</p>
+<p>Java.io 包中的流支持很多种格式，比如：基本类型、对象、本地化字符集等等。</p>
+<p>一个流可以理解为一个数据的序列。输入流表示从一个源读取数据，输出流表示向一个目标写数据。</p>
+<h1 id="读取控制台输入">读取控制台输入</h1>
+<p>Java 的控制台输入由 System.in 完成。为了获得一个绑定到控制台的字符流，你可以<strong>把 System.in 包装在一个 BufferedReader 对象中来创建一个字符流</strong>。</p>
+<pre><code class="language-java">BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+</code></pre>
+<p>BufferedReader 对象创建后，我们便可以使用 read() 方法从控制台读取一个字符，或者用 readLine() 方法读取一个字符串。</p>
+<h1 id="从控制台读取多字符输入">从控制台读取多字符输入</h1>
+<p>从 BufferedReader 对象读取一个字符要使用 read() 方法，它的语法如下：</p>
+<pre><code class="language-java">int read( ) throws IOException
+</code></pre>
+<p>每次调用 read() 方法，它从输入流读取一个字符并把该字符作为整数值返回。 当流结束的时候返回 -1。该方法抛出 IOException。</p>
+<pre><code class="language-java">//使用 BufferedReader 在控制台读取字符
+ 
+import java.io.*;
+ 
+public class BRRead {
+    public static void main(String[] args) throws IOException {
+        char c;
+        // 使用 System.in 创建 BufferedReader
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println(&quot;输入字符, 按下 'q' 键退出。&quot;);
+        // 读取字符
+        do {
+            c = (char) br.read();
+            System.out.println(c);
+        } while (c != 'q');
+    }
+}
+</code></pre>
+<h1 id="从控制台读取字符串">从控制台读取字符串</h1>
+<p>从标准输入读取一个字符串需要使用 BufferedReader 的 readLine() 方法。</p>
+<pre><code class="language-java">String readLine( ) throws IOException
+</code></pre>
+<pre><code class="language-java">//使用 BufferedReader 在控制台读取字符
+import java.io.*;
+ 
+public class BRReadLines {
+    public static void main(String[] args) throws IOException {
+        // 使用 System.in 创建 BufferedReader
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+        System.out.println(&quot;Enter lines of text.&quot;);
+        System.out.println(&quot;Enter 'end' to quit.&quot;);
+        do {
+            str = br.readLine();
+            System.out.println(str);
+        } while (!str.equals(&quot;end&quot;));
+    }
+}
+</code></pre>
+<p><em>JDK 5 后的版本我们也可以使用</em> <a href="https://www.runoob.com/java/java-scanner-class.html">Java Scanner</a> <em>类来获取控制台的输入。</em></p>
+<h1 id="控制台输出">控制台输出</h1>
+<p>控制台的输出由 print( ) 和 println() 完成。这些方法都由类 PrintStream 定义，System.out 是该类对象的一个引用。PrintStream 继承了 OutputStream类，并且实现了方法 write()。这样，write() 也可以用来往控制台写操作。</p>
+<pre><code class="language-java">void write(int byteval);
+//该方法将 byteval 的低八位字节写到流中。
+</code></pre>
+<p>**注意：**write() 方法不经常使用，因为 print() 和 println() 方法用起来更为方便。</p>
+<h1 id="读写文件">读写文件</h1>
+<p>一个流被定义为一个数据序列。输入流用于从源读取数据，输出流用于向目标写数据。</p>
+<figure data-type="image" tabindex="1"><img src="https://www.runoob.com/wp-content/uploads/2013/12/iostream2xx.png" alt="img" loading="lazy"></figure>
+<h1 id="fileinputstream">FileInputStream</h1>
+<p>该流用于从文件读取数据，它的对象可以用关键字 new 来创建。有多种构造方法可用来创建对象。</p>
+<p>可以使用字符串类型的文件名来创建一个输入流对象来读取文件：</p>
+<pre><code class="language-java">InputStream f = new FileInputStream(&quot;C:/java/hello&quot;);
+</code></pre>
+<p>也可以使用一个文件对象来创建一个输入流对象来读取文件。我们首先得使用 File() 方法来创建一个文件对象：</p>
+<pre><code class="language-java">File f = new File(&quot;C:/java/hello&quot;);
+InputStream in = new FileInputStream(f);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>序号</strong></th>
+<th style="text-align:center"><strong>方法及描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><strong>public void close() throws IOException{}</strong> 关闭此文件输入流并释放与此流有关的所有系统资源。抛出IOException异常。</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>protected void finalize()throws IOException {}</strong> 这个方法清除与该文件的连接。确保在不再引用文件输入流时调用其 close 方法。抛出IOException异常。</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center"><strong>public int read(int r)throws IOException{}</strong> 这个方法从 InputStream 对象读取指定字节的数据。返回为整数值。返回下一字节数据，如果已经到结尾则返回-1。</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center"><strong>public int read(byte[] r) throws IOException{}</strong> 这个方法从输入流读取r.length长度的字节。返回读取的字节数。如果是文件结尾则返回-1。</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center"><strong>public int available() throws IOException{}</strong> 返回下一次对此输入流调用的方法可以不受阻塞地从此输入流读取的字节数。返回一个整数值。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="fileoutputstream">FileOutputStream</h1>
+<p>该类用来创建一个文件并向文件中写数据。如果该流在打开文件进行输出前，目标文件不存在，那么该流会创建该文件。有两个构造方法可以用来创建 FileOutputStream 对象。</p>
+<p>使用字符串类型的文件名来创建一个输出流对象：</p>
+<pre><code class="language-java">OutputStream f = new FileOutputStream(&quot;C:/java/hello&quot;)
+</code></pre>
+<p>也可以使用一个文件对象来创建一个输出流来写文件。我们首先得使用File()方法来创建一个文件对象：</p>
+<pre><code class="language-java">File f = new File(&quot;C:/java/hello&quot;);
+OutputStream fOut = new FileOutputStream(f);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>序号</strong></th>
+<th style="text-align:center"><strong>方法及描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><strong>public void close() throws IOException{}</strong> 关闭此文件输入流并释放与此流有关的所有系统资源。抛出IOException异常。</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>protected void finalize()throws IOException {}</strong> 这个方法清除与该文件的连接。确保在不再引用文件输入流时调用其 close 方法。抛出IOException异常。</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center"><strong>public void write(int w)throws IOException{}</strong> 这个方法把指定的字节写到输出流中。</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center"><strong>public void write(byte[] w)</strong> 把指定数组中w.length长度的字节写到OutputStream中。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-java">//文件名 :fileStreamTest2.java
+import java.io.*;
+ 
+public class fileStreamTest2 {
+    public static void main(String[] args) throws IOException {
+ 
+        File f = new File(&quot;a.txt&quot;);
+        FileOutputStream fop = new FileOutputStream(f);
+        // 构建FileOutputStream对象,文件不存在会自动新建
+ 
+        OutputStreamWriter writer = new OutputStreamWriter(fop, &quot;UTF-8&quot;);
+        // 构建OutputStreamWriter对象,参数可以指定编码,默认为操作系统默认编码,windows上是gbk
+ 
+        writer.append(&quot;中文输入&quot;);
+        // 写入到缓冲区
+ 
+        writer.append(&quot;\r\n&quot;);
+        // 换行
+ 
+        writer.append(&quot;English&quot;);
+        // 刷新缓存冲,写入到文件,如果下面已经没有写入的内容了,直接close也会写入
+ 
+        writer.close();
+        // 关闭写入流,同时会把缓冲区内容写入文件,所以上面的注释掉
+ 
+        fop.close();
+        // 关闭输出流,释放系统资源
+ 
+        FileInputStream fip = new FileInputStream(f);
+        // 构建FileInputStream对象
+ 
+        InputStreamReader reader = new InputStreamReader(fip, &quot;UTF-8&quot;);
+        // 构建InputStreamReader对象,编码与写入相同
+ 
+        StringBuffer sb = new StringBuffer();
+        while (reader.ready()) {
+            sb.append((char) reader.read());
+            // 转成char加到StringBuffer对象中
+        }
+        System.out.println(sb.toString());
+        reader.close();
+        // 关闭读取流
+ 
+        fip.close();
+        // 关闭输入流,释放系统资源
+ 
+    }
+}
+</code></pre>
+<h1 id="java中的目录">java中的目录</h1>
+<h2 id="创建目录">创建目录</h2>
+<p>File类中有两个方法可以用来创建文件夹：</p>
+<ul>
+<li>**mkdir( )**方法创建一个文件夹，成功则返回true，失败则返回false。失败表明File对象指定的路径已经存在，或者由于整个路径还不存在，该文件夹不能被创建。</li>
+<li>**mkdirs()**方法创建一个文件夹和它的所有父文件夹。</li>
+</ul>
+<pre><code class="language-java">import java.io.File;
+ 
+public class CreateDir {
+    public static void main(String[] args) {
+        String dirname = &quot;/tmp/user/java/bin&quot;;
+        File d = new File(dirname);
+        // 现在创建目录
+        d.mkdirs();
+    }
+}
+</code></pre>
+<h2 id="读取目录">读取目录</h2>
+<p>一个目录其实就是一个 File 对象，它包含其他文件和文件夹。如果创建一个 File 对象并且它是一个目录，那么调用 isDirectory() 方法会返回 true。可以通过调用该对象上的 list() 方法，来提取它包含的文件和文件夹的列表。</p>
+<pre><code class="language-java">import java.io.File;
+ 
+public class DirList {
+    public static void main(String args[]) {
+        String dirname = &quot;/tmp&quot;;
+        File f1 = new File(dirname);
+        if (f1.isDirectory()) {
+            System.out.println(&quot;目录 &quot; + dirname);
+            String s[] = f1.list();
+            for (int i = 0; i &lt; s.length; i++) {
+                File f = new File(dirname + &quot;/&quot; + s[i]);
+                if (f.isDirectory()) {
+                    System.out.println(s[i] + &quot; 是一个目录&quot;);
+                } else {
+                    System.out.println(s[i] + &quot; 是一个文件&quot;);
+                }
+            }
+        } else {
+            System.out.println(dirname + &quot; 不是一个目录&quot;);
+        }
+    }
+}
+</code></pre>
+<h2 id="删除目录或文件">删除目录或文件</h2>
+<p>删除文件可以使用 <strong>java.io.File.delete()</strong> 方法。以下代码会删除目录 <strong>/tmp/java/</strong>，需要注意的是当删除某一目录时，必须保证该目录下没有其他文件才能正确删除，否则将删除失败。</p>
+<pre><code class="language-java">import java.io.File;
+ 
+public class DeleteFileDemo {
+    public static void main(String[] args) {
+        // 这里修改为自己的测试目录
+        File folder = new File(&quot;/tmp/java/&quot;);
+        deleteFolder(folder);
+    }
+ 
+    // 删除文件及目录
+    public static void deleteFolder(File folder) {
+        File[] files = folder.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    deleteFolder(f);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+        folder.delete();
+    }
+}
+</code></pre>
+
+											<span id="footnote"></span>
+											<div id="warn"></div>
+									</div>
+									<!-- <div class="toc-container">
+										这段是目录
+										<ul class="markdownIt-TOC">
+<li><a href="#%E8%AF%BB%E5%8F%96%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%85%A5">读取控制台输入</a></li>
+<li><a href="#%E4%BB%8E%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%AF%BB%E5%8F%96%E5%A4%9A%E5%AD%97%E7%AC%A6%E8%BE%93%E5%85%A5">从控制台读取多字符输入</a></li>
+<li><a href="#%E4%BB%8E%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%AF%BB%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2">从控制台读取字符串</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%87%BA">控制台输出</a></li>
+<li><a href="#%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6">读写文件</a></li>
+<li><a href="#fileinputstream">FileInputStream</a></li>
+<li><a href="#fileoutputstream">FileOutputStream</a></li>
+<li><a href="#java%E4%B8%AD%E7%9A%84%E7%9B%AE%E5%BD%95">java中的目录</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95">创建目录</a></li>
+<li><a href="#%E8%AF%BB%E5%8F%96%E7%9B%AE%E5%BD%95">读取目录</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95%E6%88%96%E6%96%87%E4%BB%B6">删除目录或文件</a></li>
+</ul>
+</li>
+</ul>
+
+									</div> -->
+								</div>
+								<div id="fullPage"><canvas id="canvas"></canvas></div>
+					</article>
+					<div id="eof"><span>EOF</span></div>
+					<div class="paginator pager pagination">
+						<div class="paginator_container pagination_container">
+							<a href="https://Vir-Limerence.github.io/post/19-java-scanner-lei/"
+								class="btn pre newer-posts newer_posts">上一篇</a>
+							
+							<a href="https://Vir-Limerence.github.io/post/17-java-fang-fa/"
+									class="btn next older-posts older_posts">下一篇</a>
+							
+							<div style="clear:both;height:0;"></div>
+						</div>
+					</div>
+					<div class="round-shape-one"></div>
+					<section>
+						<div class="doc_comments">
+							
+								
+									<div id="gitalk-container"></div>
+									<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/qyxtim/Static@3.8/gitalk.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css" rel="stylesheet">
+<script>
+    var gitalk = new Gitalk({
+        clientID: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        clientSecret: "x5QIsbzH84i1HkDH7IkRMs6s",
+        repo: "", owner:
+            "",
+        admin: [""],
+        id: (location.pathname).substring(0, 49),
+        distractionFreeMode: false
+    });
+    gitalk.render("gitalk-container");
+</script> -->
+<!--评论显示区，请插入合适的位置-->
+<div id="comment"></div>
+<!--Leancloud 操作库:-->
+<script src="https://unpkg.com/leancloud-storage@4.12.0/dist/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el:'#comment',
+        appId: "eh46IDcBSFZp7u2HzUgBCcEt-gzGzoHsz",
+        appKey: "x5QIsbzH84i1HkDH7IkRMs6s",
+//         masterKey: 'zliw6I1h5Gv3OJfPtEllDP6j'
+        placeholder: 'ヾﾉ≧∀≦)o快来评论一下吧!',
+        avatar:''
+    });
+</script>
+										
+
+											
+														
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<script>
+			"use strict"; !function () { for (var n = document.getElementsByTagName("pre"), e = n.length, s = 0; s < e; s++) { n[s].innerHTML = '<span class="line-number"></span>' + n[s].innerHTML + '<span class="cl"></span>'; for (var a = n[s].innerHTML.split(/\n/).length, r = 0; r < a - 1; r++) { n[s].getElementsByTagName("span")[0].innerHTML += "<span>" + (r + 1) + "</span>" } } }();
+			// 不使用目录的颜色标注
+			// let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a"); 
+			// window.addEventListener("scroll", event => {
+			// 	let fromTop = window.scrollY; mainNavLinks.forEach((link, index) => {
+			// 		let section = document.getElementById(decodeURI(link.hash).substring(1)); 
+			// 		let nextSection = null;
+			// 		if (mainNavLinks[index + 1]) { 
+			// 			nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1)); 
+			// 		}
+			// 		if (section.offsetTop <= fromTop) { 
+			// 			console.log(section);
+			// 			console.log(nextSection?nextSection:0);
+			// 			if (nextSection) { 
+			// 				if (nextSection.offsetTop > fromTop) { 
+			// 					link.classList.add("currentToc"); 
+			// 				} 
+			// 				else {
+			// 					link.classList.remove("currentToc"); 
+			// 				} 
+			// 			} else { 
+			// 				link.classList.add("currentToc"); 
+			// 			} 
+			// 		} else { 
+			// 				link.classList.remove("currentToc"); 
+			// 		}
+			// 	});
+			// });
+			var h = document.documentElement, b = document.body, st = "scrollTop", sh = "scrollHeight", progress = document.querySelector(".progress"), scroll; 
+			document.addEventListener("scroll", function () { scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100; 
+				progress.style.setProperty("--scroll", scroll + "%") });
+			var wxScale = new WxScale({ fullPage: document.querySelector("#fullPage"), canvas: document.querySelector("#canvas") }); var imgBox = document.querySelectorAll("#md_block img"); for (var i = 0; i < imgBox.length; i++) { imgBox[i].onclick = function (e) { wxScale.start(this) } };
+		</script>
+		<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"></a>
+<div class="footer animated fadeInDown">
+    <div class="site_footer">
+        <div class="mysocials">
+            <div class="my_socials">
+                
+                    
+                            
+                    
+                            
+                    
+                            
+                    <a href="https://github.com/Vir-Limerence" title="github"><i
+                                class="iconfont icon-github"></i></a>
+                        
+                            
+                    
+                            
+                    
+                            
+                    
+                            
+            </div>
+        </div>
+    </div>
+</div>
+<!--音乐，只在PC端宽度>1000px时显示-->
+<link rel="stylesheet" href="/media/music/APlayer.min.css">
+<div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="3116636104" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<script src="/media/music/APlayer.min.js"></script>
+<script src="/media/music/Meting.min.js"></script>
+<script src="/media/music/instantpage.min.js" type="module" defer></script>
+<!--看板娘-->
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<style>
+    #waifu{
+        right: 20px;
+        left: auto;
+    }
+</style>
+<script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+<script>
+// 等待页面加载完成后再绑定事件
+// window.onload = function() {
+//     // 获取看板娘的 DOM 元素（通常是一个 canvas）
+//     const live2dCanvas = document.getElementById('waifu');
+
+//     // 检查是否成功获取到看板娘的元素
+//     if (live2dCanvas) {
+//         // 添加点击事件监听器
+//         live2dCanvas.addEventListener('click', function() {
+//             // 切换隐藏和显示
+//             if (live2dCanvas.style.display === 'none') {
+//                 live2dCanvas.style.display = 'block'; // 显示
+//             } else {
+//                 live2dCanvas.style.display = 'none';  // 隐藏
+//             }
+//         });
+//     }
+// };
+window.onload = function() {
+    document.getElementById("waifu").addEventListener("click", function() {
+        localStorage.setItem("waifu-display", Date.now());
+
+        document.getElementById("waifu").style.bottom = "-500px";
+        setTimeout(() => {
+            document.getElementById("waifu").style.display = "none";
+            document.getElementById("waifu-toggle").classList.add("waifu-toggle-active");
+        }, 3000);
+    });
+};
+</script>
+
+			<script type="text/javascript" async src="https://Vir-Limerence.github.io/media/js/prism.js"></script>
+</body>
+
+</html>
