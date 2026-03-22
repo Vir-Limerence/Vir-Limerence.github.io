@@ -13,21 +13,31 @@
   .header h1 { font-size: 24px; font-weight: 600; color: #58a6ff; margin-bottom: 8px; }
   .header .meta { font-size: 13px; color: #8b949e; }
   .header .meta span { margin: 0 8px; }
-  .filter { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+  .pinned-card { background: linear-gradient(135deg, #1a3a5c, #0d2137); border: 1px solid rgba(56,139,253,0.35); border-radius: 12px; padding: 24px; margin-bottom: 20px; position: relative; }
+  .pinned-card::before { content: '📌 介绍'; position: absolute; top: 12px; right: 12px; background: rgba(56,139,253,0.2); color: #58a6ff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(56,139,253,0.3); }
+  .pinned-card h2 { font-size: 17px; color: #79c0ff; margin-bottom: 8px; }
+  .pinned-card p { font-size: 14px; color: #8b949e; line-height: 1.7; margin-bottom: 12px; }
+  .pinned-card .topics { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .pinned-card .topic-tag { background: rgba(56,139,253,0.12); color: #79c0ff; padding: 3px 10px; border-radius: 10px; font-size: 12px; }
+  .pinned-card .link-row { font-size: 12px; color: #58a6ff; }
+  .pinned-card .link-row a { color: #58a6ff; text-decoration: none; margin-right: 16px; }
+  .pinned-card .link-row a:hover { text-decoration: underline; }
+  .filter { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
   .filter span { font-size: 12px; color: #8b949e; }
   .tag { display: inline-block; padding: 4px 12px; border-radius: 16px; font-size: 12px; background: #21262d; color: #8b949e; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
   .tag:hover, .tag.active { background: rgba(56,139,253,0.15); color: #58a6ff; border-color: rgba(56,139,253,0.4); }
-  .news-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 20px; margin-bottom: 12px; transition: all 0.2s; }
+  .news-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 18px 20px; margin-bottom: 10px; transition: all 0.2s; }
   .news-card:hover { border-color: #30363d; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   .news-card .title { font-size: 15px; font-weight: 500; color: #e6edf3; margin-bottom: 10px; line-height: 1.5; }
-  .news-card .info { display: flex; align-items: center; gap: 16px; font-size: 12px; color: #8b949e; }
+  .news-card .info { display: flex; align-items: center; gap: 12px; font-size: 12px; color: #8b949e; flex-wrap: wrap; }
   .news-card .info .author { display: flex; align-items: center; gap: 4px; }
-  .news-card .info .score { margin-left: auto; background: rgba(56,139,253,0.15); color: #58a6ff; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
   .news-card .info .stat { display: flex; align-items: center; gap: 3px; }
-  .news-card .link { display: inline-block; margin-top: 10px; font-size: 12px; color: #58a6ff; text-decoration: none; }
-  .news-card .link:hover { text-decoration: underline; }
+  .news-card .info .score { margin-left: auto; background: rgba(56,139,253,0.15); color: #58a6ff; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .news-card .info .link-a { color: #58a6ff; text-decoration: none; margin-left: 8px; font-size: 12px; }
+  .news-card .info .link-a:hover { text-decoration: underline; }
   .footer { text-align: center; padding: 40px 0; color: #8b949e; font-size: 12px; border-top: 1px solid #21262d; margin-top: 40px; }
   .footer a { color: #58a6ff; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
   @media (max-width: 600px) {
     body { padding: 12px; }
     .news-card { padding: 14px; }
@@ -42,9 +52,25 @@
     <div class="meta">
       <span id="update-time">加载中...</span>
       <span>|</span>
-      <span>一周内最新</span>
+      <span>一周内热门</span>
       <span>|</span>
-      <span>每小时更新</span>
+      <span>每小时自动更新</span>
+    </div>
+  </div>
+
+  <div class="pinned-card">
+    <h2>📡 欢迎使用小龙虾科技速报</h2>
+    <p>每小时自动追踪小红书热门 AI 科技资讯，综合点赞·收藏·评论计算热度排序。支持多主题筛选：AI、大模型、科技、投资、黄金等。</p>
+    <div class="topics">
+      <span class="topic-tag">🤖 AI人工智能</span>
+      <span class="topic-tag">💬 大模型</span>
+      <span class="topic-tag">🚀 科技新鲜事</span>
+      <span class="topic-tag">💰 投资创业</span>
+      <span class="topic-tag">🥇 黄金贵金属</span>
+    </div>
+    <div class="link-row">
+      <a href="https://vir-limerence.github.io/xhs/" target="_blank">🌐 访问本站</a>
+      <a href="https://github.com/Vir-Limerence/Vir-Limerence.github.io" target="_blank">🔗 查看源码</a>
     </div>
   </div>
 
@@ -62,14 +88,13 @@
   <div id="news-list">加载中...</div>
 
   <div class="footer">
-    由 🦞 <a href="#">小龙虾</a> 自动生成 · 小红书科技热点追踪<br>
+    由 🦞 小龙虾 自动生成 · 小红书科技热点追踪<br>
     <a href="https://github.com/Vir-Limerence/Vir-Limerence.github.io">Source on GitHub</a>
   </div>
 </div>
 
 <script>
-const NEWS_DATA = [{"title": "刚刚，硅谷GTC黄仁勋大会透露了未来ai趋势", "nick": "Jannie探美国", "likes": "18320", "collected": "21838", "comments": "291", "id": "69b98978000000001a0362d6", "score": 35935}, {"title": "黄金跳水跌破4900美元！避险资产缘何失效？", "nick": "澎湃新闻", "likes": "21136", "collected": "4654", "comments": "1096", "id": "69bb64bb00000000230079d5", "score": 25407}, {"title": "战争只是掩护，华尔街3.5万亿的AI骗局崩盘", "nick": "Uncle Mark", "likes": "6812", "collected": "7352", "comments": "870", "id": "69bd0dda000000001d01d83a", "score": 13128}, {"title": "可直接复用的AI角色库，搭建一个专属AI团队", "nick": "逆向狮AI", "likes": "4462", "collected": "9972", "comments": "64", "id": "69bd057d000000001f004dc2", "score": 12471}, {"title": "AI故意发送错误邮件，天网雏形？", "nick": "讲AI的老韩", "likes": "9264", "collected": "1027", "comments": "159", "id": "69b8bbb6000000001a0264af", "score": 10165}, {"title": "一句话总结7款AI神仙工具", "nick": "悠悠学姐聊AI", "likes": "4213", "collected": "6305", "comments": "17", "id": "69bd66060000000023017b2c", "score": 9265}, {"title": "亲测有效，把文章AI味从90%降到0%！", "nick": "王炸AI社", "likes": "2901", "collected": "7301", "comments": "11", "id": "69bd4bd0000000001b001f26", "score": 8747}, {"title": "地缘冲突持续，黄金为何反而走弱？", "nick": "爽姐讲财", "likes": "5388", "collected": "3098", "comments": "194", "id": "69b94ef6000000001f00487b", "score": 7963}, {"title": "从夯到拉｜硬科技行业岗位排名（文科生版）", "nick": "程安AnnCheng", "likes": "4557", "collected": "3406", "comments": "121", "id": "69bfd03d000000001a02f355", "score": 7342}, {"title": "笑死，这个教你 Pua AI 的 Skill 开源了。", "nick": "逛逛GitHub", "likes": "4201", "collected": "3545", "comments": "273", "id": "69bc2636000000002103adc6", "score": 7173}, {"title": "我的AI团队开始分组了", "nick": "鲸鲸叶叶", "likes": "3500", "collected": "2837", "comments": "95", "id": "69b9118b000000002301f627", "score": 5817}, {"title": "黄金能抄底吗？机构如何看这次的底部", "nick": "晓琳Lexie", "likes": "3737", "collected": "1510", "comments": "247", "id": "69b805cb000000001a03377a", "score": 5068}, {"title": "黄仁勋预言：AI 时代最缺的其实是这群人...", "nick": "掌岩读书学AI", "likes": "2238", "collected": "2702", "comments": "171", "id": "69b8a00d000000002003bd81", "score": 4485}, {"title": "外媒认真研究中国手搓经济，用灵光也能搞OPC", "nick": "酥说AI大厂", "likes": "2377", "collected": "2074", "comments": "103", "id": "69b80ca6000000001a02eb19", "score": 4087}, {"title": "视频配音这个行当也要被 AI 颠覆了。", "nick": "小盖", "likes": "2160", "collected": "1371", "comments": "410", "id": "69b7e0de000000001a0262f4", "score": 3461}, {"title": "真的要爱上claude了", "nick": "喜剧演员", "likes": "2012", "collected": "1471", "comments": "500", "id": "69bbcab7000000002302665c", "score": 3438}, {"title": "谁说ai不背锅，此次大厂裁员潮真是因为ai吗", "nick": "一生牛马不得闲", "likes": "2053", "collected": "734", "comments": "577", "id": "69bf3f99000000002301d89f", "score": 2928}, {"title": "击败OpenAI登顶🏆！龙虾科学家首日600星", "nick": "Leo", "likes": "1121", "collected": "1862", "comments": "95", "id": "69b94176000000001d01e31c", "score": 2658}, {"title": "大一课程作业被ICME2026录取🎉", "nick": "Chi Zhang - Westlake AGI", "likes": "1894", "collected": "721", "comments": "210", "id": "69b8e3ad000000001e00f8a5", "score": 2575}, {"title": "阿里突然给全体员工发Token？", "nick": "知行随想 | ZhiX Insight", "likes": "1974", "collected": "543", "comments": "149", "id": "69b8f30e000000001b0229f7", "score": 2482}];
-
+const NEWS_DATA = [{"title": "刚刚，硅谷GTC黄仁勋大会透露了未来ai趋势", "nick": "Jannie探美国", "likes": "18326", "collected": "21843", "comments": "291", "id": "69b98978000000001a0362d6", "score": 35945}, {"title": "战争只是掩护，华尔街3.5万亿的AI骗局崩盘", "nick": "Uncle Mark", "likes": "6830", "collected": "7370", "comments": "871", "id": "69bd0dda000000001d01d83a", "score": 13161}, {"title": "可直接复用的AI角色库，搭建一个专属AI团队", "nick": "逆向狮AI", "likes": "4462", "collected": "9974", "comments": "64", "id": "69bd057d000000001f004dc2", "score": 12473}, {"title": "AI故意发送错误邮件，天网雏形？", "nick": "讲AI的老韩", "likes": "9272", "collected": "1028", "comments": "159", "id": "69b8bbb6000000001a0264af", "score": 10173}, {"title": "一句话总结7款AI神仙工具", "nick": "悠悠学姐聊AI", "likes": "4221", "collected": "6330", "comments": "17", "id": "69bd66060000000023017b2c", "score": 9293}, {"title": "亲测有效，把文章AI味从90%降到0%！", "nick": "王炸AI社", "likes": "2917", "collected": "7334", "comments": "11", "id": "69bd4bd0000000001b001f26", "score": 8789}, {"title": "从夯到拉｜硬科技行业岗位排名（文科生版）", "nick": "程安AnnCheng", "likes": "4665", "collected": "3494", "comments": "124", "id": "69bfd03d000000001a02f355", "score": 7522}, {"title": "笑死，这个教你 Pua AI 的 Skill 开源了。", "nick": "逛逛GitHub", "likes": "4229", "collected": "3564", "comments": "273", "id": "69bc2636000000002103adc6", "score": 7216}, {"title": "我的AI团队开始分组了", "nick": "鲸鲸叶叶", "likes": "3501", "collected": "2839", "comments": "95", "id": "69b9118b000000002301f627", "score": 5819}, {"title": "黄仁勋预言：AI 时代最缺的其实是这群人...", "nick": "掌岩读书学AI", "likes": "2238", "collected": "2702", "comments": "171", "id": "69b8a00d000000002003bd81", "score": 4485}, {"title": "外媒认真研究中国手搓经济，用灵光也能搞OPC", "nick": "酥说AI大厂", "likes": "2377", "collected": "2075", "comments": "103", "id": "69b80ca6000000001a02eb19", "score": 4088}, {"title": "谁说ai不背锅，此次大厂裁员潮真是因为ai吗", "nick": "一生牛马不得闲", "likes": "2112", "collected": "762", "comments": "599", "id": "69bf3f99000000002301d89f", "score": 3021}, {"title": "大一课程作业被ICME2026录取🎉", "nick": "Chi Zhang - Westlake AGI", "likes": "1894", "collected": "722", "comments": "210", "id": "69b8e3ad000000001e00f8a5", "score": 2576}, {"title": "AI最大的威胁可能是人才断代", "nick": "字辨古今", "likes": "1806", "collected": "317", "comments": "558", "id": "69bb6af2000000002200edd8", "score": 2338}, {"title": "综应C类大作文预测：人工智能的伦理与治理", "nick": "双鱼老师", "likes": "1174", "collected": "1218", "comments": "20", "id": "69ba56d30000000023012e34", "score": 2158}, {"title": "设计师必看｜未来想不被AI替代，你需要这些", "nick": "人文清华", "likes": "1236", "collected": "1011", "comments": "203", "id": "69babfa90000000023014e0e", "score": 2146}, {"title": "周一不再崩溃！我的外挂已上线 ！", "nick": "大K科技测评", "likes": "1019", "collected": "617", "comments": "100", "id": "69ba7e0b0000000022028580", "score": 1562}, {"title": "海外科技圈关注中国手搓经济，反复提及灵光", "nick": "浩然AI大厂日记", "likes": "791", "collected": "555", "comments": "17", "id": "69b8139a000000001a029d50", "score": 1243}, {"title": "深入研究：AI投毒，到底是怎么投的？", "nick": "爱学习的乔同学", "likes": "646", "collected": "690", "comments": "88", "id": "69b7c0a8000000002800aea1", "score": 1242}, {"title": "AI配音让我感受到信息差的恐怖", "nick": "Ivy的科技狂想", "likes": "655", "collected": "398", "comments": "61", "id": "69b8c24f0000000022026bd7", "score": 1003}];
 let currentFilter = '';
 
 function setFilter(el, kw) {
@@ -101,7 +126,7 @@ function renderNews() {
         <span class="stat">🔖 ${item.collected}</span>
         <span class="stat">💬 ${item.comments}</span>
         <span class="score">🔥 ${item.score}</span>
-        <a class="link" href="https://www.xiaohongshu.com/explore/${item.id}" target="_blank">查看原文 →</a>
+        <a class="link-a" href="https://www.xiaohongshu.com/explore/${item.id}" target="_blank">查看原文 →</a>
       </div>
     </div>
   `).join('');
