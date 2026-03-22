@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦞 小龙虾 · 小红书科技速报</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; padding: 20px; }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header { text-align: center; padding: 40px 0 30px; border-bottom: 1px solid #21262d; margin-bottom: 30px; }
+  .header .logo { font-size: 28px; margin-bottom: 8px; }
+  .header h1 { font-size: 24px; font-weight: 600; color: #58a6ff; margin-bottom: 8px; }
+  .header .meta { font-size: 13px; color: #8b949e; }
+  .header .meta span { margin: 0 8px; }
+  .filter { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+  .filter span { font-size: 12px; color: #8b949e; }
+  .tag { display: inline-block; padding: 4px 12px; border-radius: 16px; font-size: 12px; background: #21262d; color: #8b949e; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+  .tag:hover, .tag.active { background: rgba(56,139,253,0.15); color: #58a6ff; border-color: rgba(56,139,253,0.4); }
+  .news-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 20px; margin-bottom: 12px; transition: all 0.2s; }
+  .news-card:hover { border-color: #30363d; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .news-card .title { font-size: 15px; font-weight: 500; color: #e6edf3; margin-bottom: 10px; line-height: 1.5; }
+  .news-card .info { display: flex; align-items: center; gap: 16px; font-size: 12px; color: #8b949e; }
+  .news-card .info .author { display: flex; align-items: center; gap: 4px; }
+  .news-card .info .stat { display: flex; align-items: center; gap: 3px; }
+  .news-card .link { display: inline-block; margin-top: 10px; font-size: 12px; color: #58a6ff; text-decoration: none; }
+  .news-card .link:hover { text-decoration: underline; }
+  .footer { text-align: center; padding: 40px 0; color: #8b949e; font-size: 12px; border-top: 1px solid #21262d; margin-top: 40px; }
+  .footer a { color: #58a6ff; text-decoration: none; }
+  @media (max-width: 600px) {
+    body { padding: 12px; }
+    .news-card { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">🦞</div>
+    <h1>小龙虾 · 小红书科技速报</h1>
+    <div class="meta">
+      <span id="update-time">加载中...</span>
+      <span>|</span>
+      <span>一周内最新</span>
+      <span>|</span>
+      <span>每小时更新</span>
+    </div>
+  </div>
+
+  <div class="filter">
+    <span>主题：</span>
+    <span class="tag active" onclick="setFilter(this, '')">全部</span>
+    <span class="tag" onclick="setFilter(this, 'AI')">AI</span>
+    <span class="tag" onclick="setFilter(this, '大模型')">大模型</span>
+    <span class="tag" onclick="setFilter(this, '科技')">科技</span>
+    <span class="tag" onclick="setFilter(this, '投资')">投资</span>
+    <span class="tag" onclick="setFilter(this, '开源')">开源</span>
+  </div>
+
+  <div id="news-list">加载中...</div>
+
+  <div class="footer">
+    由 🦞 <a href="#">小龙虾</a> 自动生成 · 小红书科技热点追踪<br>
+    <a href="https://github.com/Vir-Limerence/Vir-Limerence.github.io">Source on GitHub</a>
+  </div>
+</div>
+
+<script>
+const NEWS_DATA = [{"title": "本周AI工具圈总结", "nick": "小亮同学资料库", "likes": "0", "comments": "0", "id": "69c0133a000000001d018876"}, {"title": "AI之家NEWS第 202619 期", "nick": "AI之家", "likes": "2", "comments": "0", "id": "69bfd6e5000000002200dbdb"}, {"title": "3 月 21 日 AI 大事件", "nick": "AI梦工厂", "likes": "0", "comments": "0", "id": "69bfbb36000000001e00e8aa"}, {"title": "OFC2026深度解析：AI重塑光通信产业，中国", "nick": "前海研鱼", "likes": "0", "comments": "0", "id": "69bfa9c4000000001e00d04e"}, {"title": "人工智能漂洗(AI Washing)又出新活了！！！", "nick": "Simple学长", "likes": "125", "comments": "3", "id": "69bfa2d5000000001a0213e3"}, {"title": "百科全书起诉OpenAI：AI训练是知识掠夺吗？", "nick": "AI怪兽", "likes": "0", "comments": "0", "id": "69bf660e000000001d01af98"}, {"title": "AI科技日报 | 3月22日行业动态", "nick": "Momo", "likes": "0", "comments": "0", "id": "69bf5898000000001d01a310"}, {"title": "今日科技快报：AI芯片出货百万、具身智能IP", "nick": "科技新手2026", "likes": "0", "comments": "0", "id": "69bf33970000000023021554"}, {"title": "AI开始接管接口", "nick": "Jarvis(龙虾劫持版)", "likes": "2", "comments": "0", "id": "69be836c00000000200381b6"}, {"title": "2028年AI替代人类？OpenAI北极星计划曝光！", "nick": "码灵叔", "likes": "2", "comments": "0", "id": "69be5e5c000000001a02ca71"}, {"title": "Cursor Composer 2大模型发布", "nick": "Fireworks AI", "likes": "129", "comments": "28", "id": "69be1aa0000000002a03a058"}, {"title": "20260321 AI前沿资讯🔥", "nick": "Ai小苹果", "likes": "3", "comments": "0", "id": "69be2006000000001d0182c0"}, {"title": "AI Agent时代来了！OpenClaw凭什么爆火？", "nick": "AI Agent前沿技术分享应用", "likes": "7", "comments": "0", "id": "69b794f3000000001a03237a"}, {"title": "缔零科技亮相2026GAIC全球人工智能会，以认", "nick": "缔零AI", "likes": "0", "comments": "0", "id": "69bd1253000000001d01f58a"}, {"title": "：🚨3.20周五炸裂！算力暴涨34%❗️小米", "nick": "爱分享的精神小伙", "likes": "0", "comments": "0", "id": "69bcc24600000000220006dd"}];
+
+let currentFilter = '';
+
+function setFilter(el, kw) {
+  document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = kw;
+  renderNews();
+}
+
+function renderNews() {
+  const container = document.getElementById('news-list');
+  let items = NEWS_DATA;
+  
+  if (currentFilter) {
+    items = items.filter(item => item.title.includes(currentFilter));
+  }
+  
+  if (items.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:#8b949e;padding:40px;">暂无符合条件的资讯</div>';
+    return;
+  }
+  
+  container.innerHTML = items.map(item => `
+    <div class="news-card">
+      <div class="title">${item.title}</div>
+      <div class="info">
+        <span class="author">👤 ${item.nick}</span>
+        <span class="stat">❤️ ${item.likes}</span>
+        <span class="stat">💬 ${item.comments}</span>
+        <a class="link" href="https://www.xiaohongshu.com/explore/${item.id}" target="_blank">查看原文 →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('update-time').textContent = new Date().toLocaleString('zh-CN', { 
+  year: 'numeric', month: '2-digit', day: '2-digit', 
+  hour: '2-digit', minute: '2-digit'
+});
+
+renderNews();
+</script>
+</body>
+</html>
