@@ -13,35 +13,35 @@
   .header h1 { font-size: 24px; font-weight: 600; color: #58a6ff; margin-bottom: 8px; }
   .header .meta { font-size: 13px; color: #8b949e; }
   .header .meta span { margin: 0 8px; }
-  .pinned-card { background: linear-gradient(135deg, #1a3a5c, #0d2137); border: 1px solid rgba(56,139,253,0.35); border-radius: 12px; padding: 24px; margin-bottom: 20px; position: relative; }
-  .pinned-card::before { content: '📌 介绍'; position: absolute; top: 12px; right: 12px; background: rgba(56,139,253,0.2); color: #58a6ff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(56,139,253,0.3); }
-  .pinned-card h2 { font-size: 17px; color: #79c0ff; margin-bottom: 8px; }
-  .pinned-card p { font-size: 14px; color: #8b949e; line-height: 1.7; margin-bottom: 12px; }
-  .pinned-card .topics { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-  .pinned-card .topic-tag { background: rgba(56,139,253,0.12); color: #79c0ff; padding: 3px 10px; border-radius: 10px; font-size: 12px; }
-  .pinned-card .link-row { font-size: 12px; color: #58a6ff; }
-  .pinned-card .link-row a { color: #58a6ff; text-decoration: none; margin-right: 16px; }
-  .pinned-card .link-row a:hover { text-decoration: underline; }
+  .pinned-card { background: linear-gradient(135deg, #1a3a5c, #0d2137); border: 1px solid rgba(56,139,253,0.35); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .pinned-card h2 { font-size: 17px; color: #79c0ff; margin-bottom: 12px; }
+  .pinned-posts { display: flex; flex-direction: column; gap: 8px; }
+  .pinned-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(56,139,253,0.06); border-radius: 8px; border: 1px solid rgba(56,139,253,0.12); }
+  .pinned-item .rank { background: #58a6ff; color: #0d1117; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 6px; min-width: 22px; text-align: center; }
+  .pinned-item .content { flex: 1; min-width: 0; }
+  .pinned-item .pinned-title { font-size: 13px; color: #e6edf3; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pinned-item .pinned-meta { font-size: 11px; color: #8b949e; margin-top: 2px; }
+  .pinned-item .pinned-link { font-size: 12px; color: #58a6ff; text-decoration: none; white-space: nowrap; }
+  .pinned-item .pinned-link:hover { text-decoration: underline; }
+  .pinned-desc { font-size: 13px; color: #8b949e; line-height: 1.6; margin: 12px 0 10px; }
+  .topics { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .topic-tag { background: rgba(56,139,253,0.12); color: #79c0ff; padding: 3px 10px; border-radius: 10px; font-size: 12px; }
   .filter { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
-  .filter span { font-size: 12px; color: #8b949e; }
+  .filter > span { font-size: 12px; color: #8b949e; }
   .tag { display: inline-block; padding: 4px 12px; border-radius: 16px; font-size: 12px; background: #21262d; color: #8b949e; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
   .tag:hover, .tag.active { background: rgba(56,139,253,0.15); color: #58a6ff; border-color: rgba(56,139,253,0.4); }
-  .news-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 18px 20px; margin-bottom: 10px; transition: all 0.2s; }
+  .news-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; transition: all 0.2s; }
   .news-card:hover { border-color: #30363d; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-  .news-card .title { font-size: 15px; font-weight: 500; color: #e6edf3; margin-bottom: 10px; line-height: 1.5; }
-  .news-card .info { display: flex; align-items: center; gap: 12px; font-size: 12px; color: #8b949e; flex-wrap: wrap; }
-  .news-card .info .author { display: flex; align-items: center; gap: 4px; }
+  .news-card .title { font-size: 14px; font-weight: 500; color: #e6edf3; margin-bottom: 8px; line-height: 1.5; }
+  .news-card .info { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #8b949e; flex-wrap: wrap; }
   .news-card .info .stat { display: flex; align-items: center; gap: 3px; }
   .news-card .info .score { margin-left: auto; background: rgba(56,139,253,0.15); color: #58a6ff; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
-  .news-card .info .link-a { color: #58a6ff; text-decoration: none; margin-left: 8px; font-size: 12px; }
+  .news-card .info .link-a { color: #58a6ff; text-decoration: none; margin-left: 6px; }
   .news-card .info .link-a:hover { text-decoration: underline; }
   .footer { text-align: center; padding: 40px 0; color: #8b949e; font-size: 12px; border-top: 1px solid #21262d; margin-top: 40px; }
   .footer a { color: #58a6ff; text-decoration: none; }
   .footer a:hover { text-decoration: underline; }
-  @media (max-width: 600px) {
-    body { padding: 12px; }
-    .news-card { padding: 14px; }
-  }
+  @media (max-width: 600px) { body { padding: 12px; } .news-card { padding: 14px; } }
 </style>
 </head>
 <body>
@@ -59,49 +59,67 @@
   </div>
 
   <div class="pinned-card">
-    <h2>📡 欢迎使用小龙虾科技速报</h2>
-    <p>每小时自动追踪小红书热门 AI 科技资讯，综合点赞·收藏·评论计算热度排序。支持多主题筛选：AI、大模型、科技、投资、黄金等。</p>
+    <h2>🔥 本次更新 · TOP5 热点</h2>
+    <div class="pinned-posts" id="pinned-posts"><div style="color:#8b949e;font-size:13px;">加载中...</div></div>
+    <p class="pinned-desc">每小时自动追踪小红书热门 AI 科技 + 黄金贵金属资讯，按热度综合排序。</p>
     <div class="topics">
-      <span class="topic-tag">🤖 AI人工智能</span>
-      <span class="topic-tag">💬 大模型</span>
-      <span class="topic-tag">🚀 科技新鲜事</span>
-      <span class="topic-tag">💰 投资创业</span>
-      <span class="topic-tag">🥇 黄金贵金属</span>
-    </div>
-    <div class="link-row">
-      <a href="https://vir-limerence.github.io/xhs/" target="_blank">🌐 访问本站</a>
-      <a href="https://github.com/Vir-Limerence/Vir-Limerence.github.io" target="_blank">🔗 查看源码</a>
+      <span class="topic-tag">🤖 AI科技</span>
+      <span class="topic-tag">📈 黄金贵金属</span>
     </div>
   </div>
 
   <div class="filter">
-    <span>主题：</span>
+    <span>筛选：</span>
     <span class="tag active" onclick="setFilter(this, '')">全部</span>
     <span class="tag" onclick="setFilter(this, 'AI')">AI</span>
-    <span class="tag" onclick="setFilter(this, '大模型')">大模型</span>
-    <span class="tag" onclick="setFilter(this, '科技')">科技</span>
-    <span class="tag" onclick="setFilter(this, '投资')">投资</span>
-    <span class="tag" onclick="setFilter(this, '开源')">开源</span>
     <span class="tag" onclick="setFilter(this, '黄金')">黄金</span>
+    <span class="tag" onclick="setFilter(this, '开源')">开源</span>
+    <span class="tag" onclick="setFilter(this, '投资')">投资</span>
   </div>
 
   <div id="news-list">加载中...</div>
 
   <div class="footer">
-    由 🦞 小龙虾 自动生成 · 小红书科技热点追踪<br>
+    由 🦞 <a href="#">小龙虾</a> 自动生成 · 小红书科技热点追踪<br>
     <a href="https://github.com/Vir-Limerence/Vir-Limerence.github.io">Source on GitHub</a>
   </div>
 </div>
 
 <script>
-const NEWS_DATA = [];
+const NEWS_DATA = [{"title": "天塌了！AI竟然帮我斩获了Best Paper 🏆", "nick": "Leo", "likes": "2281", "collected": "1627", "comments": "363", "score": 3908, "id": "69b683540000000023023253"}, {"title": "互联网公司正在上演一场 AI 版的皇帝的新衣", "nick": "wayne", "likes": "1734", "collected": "1138", "comments": "0", "score": 2644, "id": "69b50ed7000000001b001424"}, {"title": "X上这哥们真的用Ai在替代团队员工", "nick": "冇名有姓", "likes": "1195", "collected": "1564", "comments": "139", "score": 2549, "id": "695c9552000000001a025995"}, {"title": "震惊！黄金向下，大佬买入1800W", "nick": "风与野薄荷", "likes": "194", "collected": "0", "comments": "0", "score": 194, "id": "69bba43a000000002800be83"}, {"title": "黄金加速暴跌 没完了啊", "nick": "飞奔的大番茄", "likes": "543", "collected": "0", "comments": "0", "score": 543, "id": "69bfef1b00000000230105a5"}, {"title": "中东战火❗️为什么黄金反而大跌？", "nick": "小C学财经", "likes": "710", "collected": "0", "comments": "0", "score": 710, "id": "69bb2526000000001a024f47"}, {"title": "🚀PaperClaw：AI论文助手", "nick": "谷昊昊", "likes": "604", "collected": "1042", "comments": "19", "score": 1497, "id": "69a52905000000002203a994"}, {"title": "一个8KB的文件，打爆了如日中天的Skills", "nick": "智东西", "likes": "959", "collected": "0", "comments": "0", "score": 959, "id": "6989b8d6000000001a01e993"}, {"title": "黄金大牛市可能结束了", "nick": "裘德君的雅舍", "likes": "163", "collected": "0", "comments": "0", "score": 163, "id": "69bbea2c0000000023006a8e"}, {"title": "黄金重回5200，但短期内不要过于乐观", "nick": "卷毛球.", "likes": "63", "collected": "0", "comments": "0", "score": 63, "id": "69bdf56100000000220241d0"}, {"title": "GitHub周刊第21期：4 个火到爆的AI开源项目", "nick": "开发者Club", "likes": "282", "collected": "0", "comments": "0", "score": 282, "id": "69b566b0000000001a02ac7d"}, {"title": "盘点🔥近两周GitHub增长zui快的ai开源项目", "nick": "OpenClaw", "likes": "385", "collected": "0", "comments": "0", "score": 385, "id": "69b6c00e000000001a02aff1"}, {"title": "AI全自动视频剪辑", "nick": "刘桓", "likes": "88", "collected": "0", "comments": "0", "score": 88, "id": "69b57a0f000000001e00d3c2"}, {"title": "AI周报 | 腾讯AI Lab被撤，发生了什么？", "nick": "数字生命苟文", "likes": "0", "collected": "0", "comments": "0", "score": 0, "id": "69c00c77000000001a025057"}, {"title": "突发！贵金属有色集体崩盘", "nick": "勇敢小羊", "likes": "39", "collected": "0", "comments": "0", "score": 39, "id": "69bf8e1a0000000022025915"}, {"title": "Codex子代理功能大幅升级，可以尝试custom", "nick": "黑猫与方程", "likes": "56", "collected": "0", "comments": "0", "score": 56, "id": "69b9095e0000000023010522"}, {"title": "✨3月13日 AI资讯快报来啦！", "nick": "每日AI资讯快报", "likes": "2", "collected": "0", "comments": "0", "score": 2, "id": "69b3b9b6000000002200de9f"}, {"title": "Memobase: 一个开源AI Agent的记忆系统", "nick": "王鹏LLM", "likes": "39", "collected": "0", "comments": "0", "score": 39, "id": "69bd2d60000000001d01a108"}, {"title": "黄金别人恐惧我贪婪！！！", "nick": "好运常在", "likes": "12", "collected": "0", "comments": "0", "score": 12, "id": "69bbeeb70000000023016792"}, {"title": "AI技术岗位深入剖析", "nick": "Bing", "likes": "3", "collected": "0", "comments": "0", "score": 3, "id": "69c0217f0000000023005732"}];
 let currentFilter = '';
 
 function setFilter(el, kw) {
-  document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tag").forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   currentFilter = kw;
+  renderPinned();
   renderNews();
+}
+
+function renderPinned() {
+  const container = document.getElementById('pinned-posts');
+  let items = NEWS_DATA.slice().sort((a, b) => b.score - a.score).slice(0, 5);
+  
+  if (currentFilter) {
+    items = items.filter(item => item.title.includes(currentFilter)).slice(0, 5);
+  }
+  
+  if (items.length === 0) {
+    container.innerHTML = '<div style="color:#8b949e;font-size:13px;">暂无数据</div>';
+    return;
+  }
+  
+  container.innerHTML = items.map((item, i) => `
+    <div class="pinned-item">
+      <span class="rank">${i+1}</span>
+      <div class="content">
+        <div class="pinned-title">${item.title}</div>
+        <div class="pinned-meta">🔥 ${item.score} · ❤️ ${item.likes} · 👤 ${item.nick}</div>
+      </div>
+      <a class="pinned-link" href="https://www.xiaohongshu.com/explore/${item.id}" target="_blank">查看 →</a>
+    </div>
+  `).join('');
 }
 
 function renderNews() {
@@ -121,22 +139,22 @@ function renderNews() {
     <div class="news-card">
       <div class="title">${item.title}</div>
       <div class="info">
-        <span class="author">👤 ${item.nick}</span>
+        <span>👤 ${item.nick}</span>
         <span class="stat">❤️ ${item.likes}</span>
-        <span class="stat">🔖 ${item.collected}</span>
-        <span class="stat">💬 ${item.comments}</span>
+        <span class="stat">🔖 ${item.collected || 0}</span>
+        <span class="stat">💬 ${item.comments || 0}</span>
         <span class="score">🔥 ${item.score}</span>
-        <a class="link-a" href="https://www.xiaohongshu.com/explore/${item.id}" target="_blank">查看原文 →</a>
+        <a class="link-a" href="https://www.xiaohongshu.com/explore/${item.id}" target="_blank">原文 →</a>
       </div>
     </div>
   `).join('');
 }
 
-document.getElementById('update-time').textContent = new Date().toLocaleString('zh-CN', { 
-  year: 'numeric', month: '2-digit', day: '2-digit', 
-  hour: '2-digit', minute: '2-digit'
+document.getElementById('update-time').textContent = new Date().toLocaleString('zh-CN', {
+  year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
 });
 
+renderPinned();
 renderNews();
 </script>
 </body>
